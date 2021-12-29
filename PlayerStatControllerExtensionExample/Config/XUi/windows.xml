@@ -1,0 +1,179 @@
+<hud name="windows.xml">
+
+<!--Player Name Display -->
+
+		<!--Example on how to use a custom xml binding in xml -->
+		<append xpath="/windows">
+			<window name="HUDPlayerName" depth="2" pos="9,-10" width="170" height="60" side="right">
+				<rect width="171" height="46" pos="0,0" controller="PlayerStats, PlayerStatController">
+					<sprite depth="9" name="border" color="[black]" sprite="menu_empty2px" globalopacity="false" type="sliced" fillcenter="false"/>
+					<sprite depth="2" name="background" color="0,0,0,140" type="sliced"/>
+					<sprite depth="3" name="background" color="110,110,110,128" type="sliced"/>
+					<label depth="6" name="name" pos="85,-23" width="170" height="35" font_size="32" color="[white]" justify="center" text="{PlayerName}" pivot="center" crispness="Never" effect="outline" effect_distance="1,1" upper_case="true" overflow="ShrinkContent"/>
+				</rect>
+			</window>
+		</append>
+
+<!--	HUD Left Stat Bars -->
+
+		<remove xpath="/windows/window[@name='HUDLeftStatBars']" />
+
+		<append xpath="/windows">
+			<window name="HUDLeftStatBars">
+				<rect name="hud" pos="9,256" rows="4" cols="1" width="168" side="right">
+					<rect width="171" height="46" controller="HUDStatBar" stat_type="Stealth" visible="{statvisible}">
+						<sprite depth="1" name="border" color="0,0,0,150" height="46" type="sliced" />
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+		
+						<filledsprite depth="3" name="background" color="110,110,110,128" type="filled" fill="1" />
+		
+						<filledsprite depth="4" pos="1,0" name="BarContent" color="{stealthcolor}" type="filled" fill="0" />
+						<sprite depth="5" name="Icon" atlas="{staticonatlas|once}" sprite="{staticon|once}" size="35,35" pos="26,-24" pivot="center" foregroundlayer="true"/>
+						<label depth="6" name="TextContent" pos="44,-23" font_size="32" color="[white]" justify="center" pivot="left" text="{statcurrent}" width="125" height="35"/>
+		
+						<sprite depth="8" name="border" color="0,0,0,255" type="sliced" fillcenter="false"/>
+						<filledsprite depth="8" name="background" color="0,0,0,255" width="171" fillcenter="false" type="filled" fill="1" />
+						<filledsprite depth="3" name="background" color="0,0,0,255" width="170" fillcenter="false" type="filled" fill="1" />
+					</rect>
+		
+					<rect width="171" height="46" pos="0,-50" controller="HUDStatBar" stat_type="Stamina" visible="{statvisible}">
+						<sprite depth="1" name="border" color="0,0,0,128" type="sliced"/>
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+		
+						<filledsprite depth="3" name="background" color="110,110,110,128" width="169" type="filled" fill="{statmodifiedmax}" />
+		
+						<filledsprite depth="5" pos="1,0" name="BarContent" color="0,54,255,128" width="169" type="filled" fill="0"  />
+						<sprite depth="6" name="Icon" atlas="{staticonatlas|once}" sprite="ui_game_symbol_agility" size="35,35" pos="26,-24" pivot="center" foregroundlayer="true"/>
+						<label depth="7" name="TextContent" pos="44,-23" font_size="32" color="[white]" justify="center" pivot="left" text="{statcurrentwithmax}" width="125" height="35"/>
+		
+						<sprite depth="8" name="border" color="0,0,0,255" type="sliced" fillcenter="false"/>
+						<filledsprite depth="8" name="background" color="0,0,0,255" width="171" fillcenter="false" type="filled" fill="{statmodifiedmax}" />
+						<filledsprite depth="3" name="background" color="0,0,0,255" width="170" fillcenter="false" type="filled" fill="{statmodifiedmax}" />
+					</rect>
+		
+					<rect width="171" height="46" pos="0,-100" controller="HUDStatBar" stat_type="Health" visible="{statvisible}">
+						<sprite depth="1" name="border" color="0,0,0,128" type="sliced"/>
+		
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+						<filledsprite depth="3" name="background" color="110,110,110,128" width="169" type="filled" fill="{statmodifiedmax}" />
+		
+						<filledsprite depth="5" pos="1,0" name="BarContent" color="255,0,0,128" width="169" type="filled" fill="0" />
+						<sprite depth="6" name="Icon" atlas="{staticonatlas|once}" sprite="{staticon|once}" size="35,35" pos="26,-24" pivot="center" foregroundlayer="true"/>
+						<label depth="7" name="TextContent" pos="44,-23" font_size="32" color="[white]" justify="center" pivot="left" text="{statcurrentwithmax}" width="125" height="35"/>
+		
+						<sprite depth="8" name="border" color="0,0,0,255" type="sliced" fillcenter="false"/>
+						<filledsprite depth="8" name="background" color="0,0,0,255" width="171" fillcenter="false" type="filled" fill="{statmodifiedmax}" />
+						<filledsprite depth="3" name="background" color="0,0,0,255" width="170" fillcenter="false" type="filled" fill="{statmodifiedmax}" />
+					</rect>
+
+					<!-- Adds a food Stat bar with giving the current amount of food and the max amount of food as a label, uses the PlayerStatController and uses the default PlayerWaterWithMax xml binding -->
+					<rect pos="0,-150" width="171" height="46" controller="HUDStatBar" stat_type="Food" visible="{statvisible}">
+						<sprite depth="9" name="border" color="[black]" sprite="menu_empty2px" globalopacity="false" type="sliced" fillcenter="false" />
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+						<sprite depth="3" name="background" color="110,110,110,128" type="sliced"/>
+		
+						<filledsprite depth="5" pos="1,0" width="169" name="BarContent" color="0,255,54,128" globalopacity="false" type="filled" fill="0"  />
+						<label depth="7" name="TextContent" pos="44,-23" font_size="32" color="[white]" justify="center" pivot="left" text="{PlayerFoodWithMax}" width="125" height="35" controller="PlayerStats, PlayerStatController"/>
+					</rect>
+		
+					<!-- Adds a Water Stat bar with giving the current amount of water and the max amount of water as a label, uses the PlayerStatController and uses the default PlayerWaterWithMax xml binding -->
+					<rect pos="0,-200" width="171" height="46" controller="HUDStatBar" stat_type="Water" visible="{statvisible}">
+						<sprite depth="9" name="border" color="[black]" sprite="menu_empty2px" globalopacity="false" type="sliced" fillcenter="false" />
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+						<sprite depth="3" name="background" color="110,110,110,128" type="sliced"/>
+		
+						<filledsprite depth="5" pos="1,0" width="169" name="BarContent" color="0,54,255,160" globalopacity="false" type="filled" fill="0"  />
+						<label depth="7" name="TextContent" pos="44,-23" font_size="32" color="[white]" justify="center" pivot="left" text="{PlayerWaterWithMax}" width="125" height="35" controller="PlayerStats, PlayerStatController"/>
+					</rect>
+				</rect>
+		
+				<rect name="hud" pos="90,232" side="left" controller="BuffPopoutList" pivot="BottomLeft" >
+					<panel width="168" height="46" name="item" visible="false" pivot="right" disableautobackground="true" pos="70, 0" style="press" sound="[recipe_click]" on_hover="true" >
+						<sprite depth="3" pos="0,0"  name="Background" sprite="ui_game_popup" height="46" width="162" pivot="center" flip="Horizontally" color="[transparent]" />
+						<sprite depth="4" name="Icon" size="40,40" pos="-54,0" pivot="center" color="[transparent]"/>
+						<label depth="6" name="TextContent" pos="-37,0" font_size="28" color="[white]" justify="center" width="118" height="40" pivot="left"/>
+					</panel>
+				</rect>
+			</window>
+		</append>
+
+<!--	HUD Left Stat Bars -->
+		<remove xpath="/windows/window[@name='HUDRightStatBars']" />
+
+		<append xpath="/windows">
+			<window name="HUDRightStatBars">
+				<rect name="hud" pos="-90,32" side="right" controller="CollectedItemList" pivot="BottomLeft">
+					<panel width="168" height="46" name="item" visible="false" pivot="right" disableautobackground="true" pos="70, 0" >
+						<sprite depth="3" pos="0,0"  name="Background" sprite="ui_game_popup" height="44" width="162" pivot="center" />
+						<sprite depth="4" name="Icon" atlas="ItemIconAtlas"  size="38,38" pos="50,0" pivot="center" foregroundlayer="true"/>
+						<label depth="6" pos="12,0" name="TextContent" font_size="30" color="[white]" justify="right" height="32" pivot="right"/>
+						<sprite depth="6" pos="0,16" width="36" height="36" name="Negative" sprite="ui_game_symbol_x" color="[red]" />
+					</panel>
+				</rect>
+		
+				<grid name="hud" pos="-194,55" rows="2" cols="1" width="168" cell_width="168" cell_height="46" repeat_content="false" side="right">
+					<rect width="188" height="46" controller="HUDStatBar" stat_type="ActiveItem" visible="{statvisible}">
+						<sprite depth="3" pos="3,0"  name="BarContent" sprite="{statimage|once}" height="46" width="182" />
+						<sprite depth="4" name="Icon" atlas="{staticonatlas|once}" sprite="{staticon}" size="39,35" pos="130,-6" color="{staticoncolor}" foregroundlayer="true" />
+						<label depth="6" name="TextContent" pos="115,-26" font_size="28" color="[white]" justify="right" pivot="right" text="{statcurrentwithmax}" width="250" height="30" />
+					</rect>
+				</grid>
+				<!-- An example of a PlayerStatController adding a basic speedometer for vehicles with custom bindings. The InVehicle and VehicleSpeed class are used to bind the values to this part of the xml-->
+				<!-- The InVehicle and VehicleSpeed custom bindings are used to show how to override the HasValueChanged method. In this example, these bindings are only checked if the person is in a vehicle-->
+				<rect name="hud" pos="-177,156" rows="3" cols="1" width="168" side="right">
+					<rect width="168" height="46" pos="0,0" controller="PlayerStats, PlayerStatController" visible="{InVehicle}">
+						<sprite depth="1" name="border" color="0,0,0,128" type="sliced"/>
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+						<sprite depth="2" pos="3,-3"  name="background" height="40" width="162" color="64,64,64,100" type="sliced" />
+						<label depth="6" name="TextContent" pos="84,-23" font_size="28" color="[white]" justify="center" pivot="center" text="{VehicleSpeed} m/s" width="120" height="35"/>
+						<sprite depth="8" name="border" color="0,0,0,255" type="sliced" fillcenter="false"/>
+					</rect>
+					<rect width="168" height="46" pos="0,-50" controller="HUDStatBar" stat_type="VehicleFuel" visible="{statvisible}">
+						<sprite depth="1" name="border" color="0,0,0,128" type="sliced"/>
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+						<sprite depth="2" pos="3,-3"  name="background" height="40" width="162" color="64,64,64,100" type="sliced" />
+						<filledsprite depth="5" name="BarContent" color="0,54,255,128" width="169" type="filled" fill="0" flip="Horizontally" />
+						<sprite depth="4" name="Icon" atlas="{staticonatlas|once}" sprite="{staticon|once}" size="35,35" pos="148,-24" pivot="center" foregroundlayer="true" />
+						<label depth="6" name="TextContent" pos="125,-24" font_size="32" color="[white]" justify="center" pivot="right" text="{statcurrentwithmax}" width="120" height="35"/>
+						<sprite depth="8" name="border" color="0,0,0,255" type="sliced" fillcenter="false"/>
+					</rect>
+					<rect width="168" height="46" pos="0,-100" controller="HUDStatBar" stat_type="VehicleHealth" visible="{statvisible}">
+						<sprite depth="1" name="border" color="0,0,0,128" type="sliced"/>
+						<sprite depth="2" name="background" color="0,0,0,140" type="sliced" />
+						<sprite depth="2" pos="3,-3"  name="background" height="40" width="162" color="64,64,64,100" type="sliced" />
+		
+						<filledsprite depth="5" name="BarContent" color="255,0,0,128" width="169" type="filled" fill="0" flip="Horizontally" />
+						<sprite depth="4" name="Icon" atlas="{staticonatlas|once}" sprite="{staticon|once}" size="35,35" pos="148,-24" pivot="center" foregroundlayer="true" />
+						<label depth="6" name="TextContent" pos="125,-24" font_size="28" color="[white]" justify="center" pivot="right" text="{statcurrentwithmax}" width="120" height="35"/>
+						<sprite depth="8" name="border" color="0,0,0,255" type="sliced" fillcenter="false"/>
+					</rect>
+				</rect>
+			</window>
+		</append>
+
+<!--    HUD Toolbelt-->
+
+		<remove xpath="/windows/window[@name='windowToolbelt']" />
+
+		<append xpath="/windows">
+			<window name="windowToolbelt" width="753" height="78" depth="5" anchor="CenterBottom" pos="-388, 92" backgroundcolor="[black]" controller="ToolbeltWindow" cursor_area="true" xp_fill_speed="2.5" >		
+					<rect>
+						<sprite depth="8" name="backgroundMain" sprite="menu_empty3px" color="[black]" type="sliced" fillcenter="false" on_press="true" />
+						
+						<rect pos="3,-3" controller="Toolbelt">
+							<grid depth="10" name="inventory" rows="1" cols="10" pos="0,0" cell_width="75" cell_height="75" repeat_content="true">
+								<item_stack name="0"/>
+							</grid>
+							<grid depth="10" name="inventory2" rows="1" cols="10" pos="0,82" cell_width="75" cell_height="75" repeat_content="true" visible="{secondrow}">
+								<item_stack name="0"/>
+							</grid>
+						</rect>
+			
+						<sprite depth="1" pos="0,6" height="8" color="[mediumGrey]" sprite="menu_empty2px" globalopacity="false" type="sliced" />
+						<sprite depth="9" pos="0,6" height="8" color="[black]" sprite="menu_empty2px" globalopacity="false" type="sliced" fillcenter="false" />
+						<sprite depth="4" pos="0,6" height="8" width="750" color="{xpcolor}" globalopacity="false" type="filled" fill="{xp}" />
+					</rect>
+				</window>
+		</append>
+
+</hud>

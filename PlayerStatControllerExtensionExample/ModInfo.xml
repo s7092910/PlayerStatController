@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<xml>
+	<ModInfo>
+		<Name value="PlayerStatControllerExtentionExample" />
+		<Description value="A Example Mod for the XUiC_PlayerStatController. 
+		Includes an example on how to add your own custom bindings in CustomBindingExample.cs" />
+		<Author value="Landor aka Laydor(if Landor is not available) aka s7092910" />
+		<Version value="v 1.0.0 rc 1" />
+		<Website value="" />
+	</ModInfo>
+</xml>

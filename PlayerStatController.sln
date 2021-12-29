@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerStatController", ".\PlayerController\PlayerStatController.csproj", "{5E72401A-6D93-4B13-829F-369EF7E03ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayerStatControllerExtensionExample", ".\PlayerStatControllerExtensionExample\PlayerStatControllerExtensionExample.csproj", "{8BA5D4C0-05FE-4DE1-87FB-C2357433104C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5E72401A-6D93-4B13-829F-369EF7E03ABC} = {5E72401A-6D93-4B13-829F-369EF7E03ABC}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E72401A-6D93-4B13-829F-369EF7E03ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E72401A-6D93-4B13-829F-369EF7E03ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E72401A-6D93-4B13-829F-369EF7E03ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E72401A-6D93-4B13-829F-369EF7E03ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BA5D4C0-05FE-4DE1-87FB-C2357433104C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BA5D4C0-05FE-4DE1-87FB-C2357433104C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BA5D4C0-05FE-4DE1-87FB-C2357433104C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BA5D4C0-05FE-4DE1-87FB-C2357433104C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3180DAFD-27C9-487B-B9B3-219E30BD1DD7}
+	EndGlobalSection
+EndGlobal
