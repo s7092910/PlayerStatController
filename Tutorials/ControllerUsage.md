@@ -115,4 +115,4 @@ This error message will be helpful in debugging the xml.
 
 [Adding a new XML binding](CustomXMLBindings.md)
 
-[Examples of the Controller in Action and custom XML bindings](PlayerStatController/)
+[Examples of the Controller in Action and custom XML bindings](PlayerStatControllerExample/)

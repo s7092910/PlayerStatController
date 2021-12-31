@@ -61,7 +61,7 @@ server and the server must have Easy Anti Cheat turned off.
 
 [Adding a new XML binding](Tutorials/CustomXMLBindings.md)
 
-[Examples of the Controller in Action and custom XML bindings](PlayerStatController/)
+[Examples of the Controller in Action and custom XML bindings](PlayerStatControllerExample/)
 
 ## License
 

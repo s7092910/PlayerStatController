@@ -110,4 +110,4 @@ Logging.enabled = true;
 
 [Using the Controller in your mod](ControllerUsage.md)
 
-[Examples of the Controller in Action and custom XML bindings](PlayerStatController/)
+[Examples of the Controller in Action and custom XML bindings](PlayerStatControllerExample/)
