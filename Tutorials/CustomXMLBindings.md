@@ -55,7 +55,6 @@ binding value, but it is there if you need access to the player's EntityPlayer i
 The return value is a `string` and is used to return the value that will be bound to the XML. Any formatting is required
 it is suggested to be done inside this method and the formatted `string` be returned.
 
-
 ### Creating the `HasValueChanged` method - Optional
 
 This is optional if you want to control how it is determined if the binding value has been changed. This is done by overriding
@@ -73,7 +72,6 @@ public override bool HasValueChanged(EntityPlayer player, ref string lastValue)
 if the binding value has changed. `HasValueChanged` returns true if the binding value has changed and the binding needs to be
 updated. Return false if the binding value hasn't changed. If the binding value has changed. `lastValue` needs to be set to
 the new value.
-
 
 ## Adding the new Binding
 
@@ -95,7 +93,6 @@ public class YourClassInit : IModApi
 
 Once that is done, build your project and add the DLL produced to your mod folder. You now have access to that binding in the
 XML with the controller.
-
 
 ## Debugging
 
