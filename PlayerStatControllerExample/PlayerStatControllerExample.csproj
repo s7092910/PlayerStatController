@@ -7,8 +7,8 @@
     <ProjectGuid>{8BA5D4C0-05FE-4DE1-87FB-C2357433104C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlayerStatControllerExtensionExample</RootNamespace>
-    <AssemblyName>PlayerStatControllerExtensionExample</AssemblyName>
+    <RootNamespace>PlayerStatControllerExample</RootNamespace>
+    <AssemblyName>PlayerStatControllerExample</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
