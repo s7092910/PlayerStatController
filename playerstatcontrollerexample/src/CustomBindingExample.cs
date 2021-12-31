@@ -18,12 +18,6 @@ public class CustomBindingExample
     {
         public void InitMod(Mod _modInstance)
         {
-            //This turns on the INF logging of the XUiC_PlayerStats to the 7 Days to Die Console.
-            //By default it is disabled
-            //If disabled, WRN and ERR messages logged by the XUiC_PlayerStatController library will still be logged
-            //to the 7 Days to Die Console.
-            Logging.enabled = true;
-
             Log.Out(" Loading Patch: " + GetType());
             //Adds the CharacterName custom binding to the supported bindings of the XUiC_PlayerStats
             //{PlayerName} is the binding used in the xml to access this custom binding.
@@ -36,6 +30,12 @@ public class CustomBindingExample
             BindingType.AddNewBinding(new InVehicle(502, "InVehicle"));
 
             Log.Out(" Loaded Patch: " + GetType());
+
+            //This turns on the INF logging of the XUiC_PlayerStats to the 7 Days to Die Console.
+            //By default it is disabled
+            //If disabled, WRN and ERR messages logged by the XUiC_PlayerStatController library will still be logged
+            //to the 7 Days to Die Console.
+            Logging.enabled = true;
         }
     }
 
