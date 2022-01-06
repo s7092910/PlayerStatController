@@ -35,6 +35,18 @@ public static class Logging
         }
     }
 
+    public static void Inform(string message)
+    {
+        string mess = string.Format("[{0}] {1}", logTag, message);
+        Log.Out(mess);
+    }
+
+    public static void Inform(string TAG, string message)
+    {
+        string mess = string.Format("[{0}] [{1}] {2}", logTag, TAG, message);
+        Log.Out(mess);
+    }
+
     public static void Warning(string message)
     {
         string mess = string.Format("[{0}] {1}", logTag, message);
