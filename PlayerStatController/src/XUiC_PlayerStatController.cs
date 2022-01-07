@@ -16,7 +16,7 @@ using System.Collections.Generic;
 
 public class XUiC_PlayerStats : XUiController
 {
-    private string logTag = typeof(XUiC_PlayerStats).ToString();
+    private string TAG = typeof(XUiC_PlayerStats).ToString();
 
     public bool isDirty;
 
@@ -42,13 +42,13 @@ public class XUiC_PlayerStats : XUiController
 		}
 		if (isDirty || HasChanged())
 		{
-            Logging.Out(logTag, "isDirty = " + isDirty + ", localPlayer = " + localPlayer);
+            Logging.Out(TAG, "isDirty = " + isDirty + ", localPlayer = " + localPlayer);
             if (localPlayer == null)
 			{
 				return;
 			}
-			isDirty = false;
-			base.RefreshBindings(false);
+            base.RefreshBindings(isDirty);
+            isDirty = false;
 		}
 	}
 
@@ -71,13 +71,13 @@ public class XUiC_PlayerStats : XUiController
     /// <returns><see langword="true"/> if the value has been found or has a <see cref="BindingType">, otherwise <see langword="false"/></returns>
     public override bool GetBindingValue(ref string value, string bindingName)
     {
-        Logging.Out(logTag, "GetBindingValue(), bindingName = " + bindingName);
+        Logging.Out(TAG, "GetBindingValue(), bindingName = " + bindingName);
         if (bindingName != null)
         {
             if (localPlayer != null)
             {
                 value = GetBindingValue(bindingName);
-                Logging.Out(logTag, "GetBindingValue(), bindingValue = " + value);
+                Logging.Out(TAG, "GetBindingValue(), bindingValue = " + value);
             }
             else
             {
@@ -137,6 +137,7 @@ public class XUiC_PlayerStats : XUiController
             }
             activeBindings.Add(stat);
             bindingsLastValue.Add(stat, "");
+            Logging.Inform(TAG, "Adding binding with bindingName = " + bindingName);
         }
 
         return stat.GetCurrentValue(localPlayer);
