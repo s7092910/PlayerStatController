@@ -127,7 +127,7 @@ public class XUiC_PlayerStats : XUiController
     /// <returns>The value for the binding</returns>
     private string GetBindingValue(string bindingName)
     {
-        BindingType stat = activeBindings.Find(f => f.Name == bindingName);
+        BindingType stat = activeBindings.Find(f => f.Name.EqualsCaseInsensitive(bindingName));
         if (stat == null)
         {
             stat = BindingType.FromBindingName(bindingName);

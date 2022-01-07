@@ -156,7 +156,7 @@ public abstract class BindingType : Enumeration
     /// <returns><see langword="true"/> if the bindingName has a BindingType, otherwise <see langword="false"/> </returns>
     public static bool SupportsBinding(string bindingName)
     {
-        bool b = SupportedBindingTypes.Exists(item => item.Name == bindingName);
+        bool b = SupportedBindingTypes.Exists(item => item.Name.EqualsCaseInsensitive(bindingName));
         if (!b)
         {
             var message = string.Format("{0} is not a supported bindingName", bindingName);
@@ -186,7 +186,7 @@ public abstract class BindingType : Enumeration
     /// <returns>The found <see cref="BindingType"/>, otherwise <see langword="null"/></returns>
     public static BindingType FromBindingName(string name)
     {
-        var matchingItem = parse<string>(name, item => item.Name == name);
+        var matchingItem = parse<string>(name, item => item.Name.EqualsCaseInsensitive(name));
         return matchingItem;
     }
 
