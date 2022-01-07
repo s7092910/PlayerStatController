@@ -20,16 +20,18 @@ public class FlashLight : BindingType
     protected int gunFlashlightId;
     protected int helmetFlashlightId;
 
+    private bool initialized = false;
+
     public FlashLight(int value, string name) : base(value, name)
     {
-        flashlightId = ItemClass.GetItemClass("meleeToolFlashlight02").Id;
-        gunFlashlightId = ItemClass.GetItemClass("modGunFlashlight").Id;
-        helmetFlashlightId = ItemClass.GetItemClass("modArmorHelmetLight").Id;
 
     }
 
     public override string GetCurrentValue(EntityPlayer player)
     {
+        if (!initialized)
+            init();
+
         List<ItemValue> activatedableItemPool = player.GetActivatableItemPool();
         foreach (ItemValue item in activatedableItemPool)
         {
@@ -44,6 +46,14 @@ public class FlashLight : BindingType
             }
         }
         return "false";
+    }
+
+    private void init()
+    { 
+        flashlightId = ItemClass.GetItemClass("meleeToolFlashlight02").Id;
+        gunFlashlightId = ItemClass.GetItemClass("modGunFlashlight").Id;
+        helmetFlashlightId = ItemClass.GetItemClass("modArmorHelmetLight").Id;
+        initialized = true;
     }
 
     public virtual bool checkId(int itemId)
