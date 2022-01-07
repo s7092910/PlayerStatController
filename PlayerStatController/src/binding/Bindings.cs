@@ -33,24 +33,24 @@ public abstract class BindingType : Enumeration
     public static readonly BindingType CharacterXPToNextLevel  = new CharacterXPToNextLevel(10,    "PlayerXPToNextLevel");
 
     public static readonly BindingType characterHealthCurrent = new CharacterHealth(100, "PlayerHealth",            CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterHealthMax     = new CharacterHealth(102, "PlayerHealthMax",         CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterHealthWithMax = new CharacterHealth(103, "PlayerHealthWithMax",     CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterHealthPercent = new CharacterHealth(104, "PlayerHealthPercentage",  CharacterMainStat.MainStatFormat.Percentage);
+    public static readonly BindingType characterHealthMax     = new CharacterHealth(101, "PlayerHealthMax",         CharacterMainStat.MainStatFormat.Max);
+    public static readonly BindingType characterHealthWithMax = new CharacterHealth(102, "PlayerHealthWithMax",     CharacterMainStat.MainStatFormat.WithMax);
+    public static readonly BindingType characterHealthPercent = new CharacterHealth(103, "PlayerHealthPercentage",  CharacterMainStat.MainStatFormat.Percentage);
 
-    public static readonly BindingType characterStaminaCurrent = new CharacterStamina(105, "PlayerStamina",             CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterStaminaMax     = new CharacterStamina(106, "PlayerStaminaMax",          CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterStaminaWithMax = new CharacterStamina(107, "PlayerStaminaWithMax",      CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterStaminaPercent = new CharacterStamina(108, "PlayerStaminaPercentage",   CharacterMainStat.MainStatFormat.Percentage);
+    public static readonly BindingType characterStaminaCurrent = new CharacterStamina(110, "PlayerStamina",             CharacterMainStat.MainStatFormat.Current);
+    public static readonly BindingType characterStaminaMax     = new CharacterStamina(111, "PlayerStaminaMax",          CharacterMainStat.MainStatFormat.Max);
+    public static readonly BindingType characterStaminaWithMax = new CharacterStamina(112, "PlayerStaminaWithMax",      CharacterMainStat.MainStatFormat.WithMax);
+    public static readonly BindingType characterStaminaPercent = new CharacterStamina(113, "PlayerStaminaPercentage",   CharacterMainStat.MainStatFormat.Percentage);
 
-    public static readonly BindingType characterFoodCurrent = new CharacterFood(109, "PlayerFood",             CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterFoodMax     = new CharacterFood(110, "PlayerFoodMax",          CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterFoodWithMax = new CharacterFood(111, "PlayerFoodWithMax",      CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterFoodPercent = new CharacterFood(112, "PlayerFoodPercentage",   CharacterMainStat.MainStatFormat.Percentage);
+    public static readonly BindingType characterFoodCurrent = new CharacterFood(120, "PlayerFood",             CharacterMainStat.MainStatFormat.Current);
+    public static readonly BindingType characterFoodMax     = new CharacterFood(121, "PlayerFoodMax",          CharacterMainStat.MainStatFormat.Max);
+    public static readonly BindingType characterFoodWithMax = new CharacterFood(122, "PlayerFoodWithMax",      CharacterMainStat.MainStatFormat.WithMax);
+    public static readonly BindingType characterFoodPercent = new CharacterFood(123, "PlayerFoodPercentage",   CharacterMainStat.MainStatFormat.Percentage);
 
-    public static readonly BindingType characterWaterCurrent = new CharacterWater(113, "PlayerWater",             CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterWaterMax     = new CharacterWater(114, "PlayerWaterMax",          CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterWaterWithMax = new CharacterWater(115, "PlayerWaterWithMax",      CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterWaterPercent = new CharacterWater(116, "PlayerWaterPercentage",   CharacterMainStat.MainStatFormat.Percentage);
+    public static readonly BindingType characterWaterCurrent = new CharacterWater(130, "PlayerWater",             CharacterMainStat.MainStatFormat.Current);
+    public static readonly BindingType characterWaterMax     = new CharacterWater(131, "PlayerWaterMax",          CharacterMainStat.MainStatFormat.Max);
+    public static readonly BindingType characterWaterWithMax = new CharacterWater(132, "PlayerWaterWithMax",      CharacterMainStat.MainStatFormat.WithMax);
+    public static readonly BindingType characterWaterPercent = new CharacterWater(133, "PlayerWaterPercentage",   CharacterMainStat.MainStatFormat.Percentage);
 
     public static readonly BindingType characterHealthModifier         = new CharacterDisplayInfoStat(200, "PlayerHealthModifier",       0);
     public static readonly BindingType characterStaminaModifier        = new CharacterDisplayInfoStat(201, "PlayerStaminaModifier",      1);
