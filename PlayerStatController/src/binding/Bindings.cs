@@ -32,22 +32,22 @@ public abstract class BindingType : Enumeration
     public static readonly BindingType CharacterCurrentLife    = new CharacterCurrentLife(9,       "PlayerCurrentLife");
     public static readonly BindingType CharacterXPToNextLevel  = new CharacterXPToNextLevel(10,    "PlayerXPToNextLevel");
 
-    public static readonly BindingType characterHealthCurrent = new CharacterHealth(100, "PlayerHealthCurrent",      CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterHealthMax     = new CharacterHealth(102, "PlayerHealthMax",          CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterHealthWithMax = new CharacterHealth(103, "PlayerHealthWithMax",      CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterHealthPercent = new CharacterHealth(104, "PlayerHealthPercentage",   CharacterMainStat.MainStatFormat.Percentage);
+    public static readonly BindingType characterHealthCurrent = new CharacterHealth(100, "PlayerHealth",            CharacterMainStat.MainStatFormat.Current);
+    public static readonly BindingType characterHealthMax     = new CharacterHealth(102, "PlayerHealthMax",         CharacterMainStat.MainStatFormat.Max);
+    public static readonly BindingType characterHealthWithMax = new CharacterHealth(103, "PlayerHealthWithMax",     CharacterMainStat.MainStatFormat.WithMax);
+    public static readonly BindingType characterHealthPercent = new CharacterHealth(104, "PlayerHealthPercentage",  CharacterMainStat.MainStatFormat.Percentage);
 
-    public static readonly BindingType characterStaminaCurrent = new CharacterStamina(105, "PlayerStaminaCurrent",       CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterStaminaMax     = new CharacterStamina(106, "PlayerStaminaMax",           CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterStaminaWithMax = new CharacterStamina(107, "PlayerStaminaWithMax",       CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterStaminaPercent = new CharacterStamina(108, "PlayerStaminaPercentage",    CharacterMainStat.MainStatFormat.Percentage);
+    public static readonly BindingType characterStaminaCurrent = new CharacterStamina(105, "PlayerStamina",             CharacterMainStat.MainStatFormat.Current);
+    public static readonly BindingType characterStaminaMax     = new CharacterStamina(106, "PlayerStaminaMax",          CharacterMainStat.MainStatFormat.Max);
+    public static readonly BindingType characterStaminaWithMax = new CharacterStamina(107, "PlayerStaminaWithMax",      CharacterMainStat.MainStatFormat.WithMax);
+    public static readonly BindingType characterStaminaPercent = new CharacterStamina(108, "PlayerStaminaPercentage",   CharacterMainStat.MainStatFormat.Percentage);
 
-    public static readonly BindingType characterFoodCurrent = new CharacterFood(109, "PlayerFoodCurrent",       CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterFoodMax     = new CharacterFood(110, "PlayerFoodMax",           CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterFoodWithMax = new CharacterFood(111, "PlayerFoodWithMax",       CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterFoodPercent = new CharacterFood(112, "PlayerFoodPercentage",    CharacterMainStat.MainStatFormat.Percentage);
+    public static readonly BindingType characterFoodCurrent = new CharacterFood(109, "PlayerFood",             CharacterMainStat.MainStatFormat.Current);
+    public static readonly BindingType characterFoodMax     = new CharacterFood(110, "PlayerFoodMax",          CharacterMainStat.MainStatFormat.Max);
+    public static readonly BindingType characterFoodWithMax = new CharacterFood(111, "PlayerFoodWithMax",      CharacterMainStat.MainStatFormat.WithMax);
+    public static readonly BindingType characterFoodPercent = new CharacterFood(112, "PlayerFoodPercentage",   CharacterMainStat.MainStatFormat.Percentage);
 
-    public static readonly BindingType characterWaterCurrent = new CharacterWater(113, "PlayerWaterCurrent",      CharacterMainStat.MainStatFormat.Current);
+    public static readonly BindingType characterWaterCurrent = new CharacterWater(113, "PlayerWater",             CharacterMainStat.MainStatFormat.Current);
     public static readonly BindingType characterWaterMax     = new CharacterWater(114, "PlayerWaterMax",          CharacterMainStat.MainStatFormat.Max);
     public static readonly BindingType characterWaterWithMax = new CharacterWater(115, "PlayerWaterWithMax",      CharacterMainStat.MainStatFormat.WithMax);
     public static readonly BindingType characterWaterPercent = new CharacterWater(116, "PlayerWaterPercentage",   CharacterMainStat.MainStatFormat.Percentage);
@@ -69,6 +69,16 @@ public abstract class BindingType : Enumeration
     public static readonly BindingType characterBlockDamage            = new CharacterDisplayInfoStat(214, "PlayerBlockDamage",          14);
     public static readonly BindingType characterRPM                    = new CharacterDisplayInfoStat(215, "PlayerRPM",                  15);
     public static readonly BindingType characterAPM                    = new CharacterDisplayInfoStat(216, "PlayerAPM",                  16);
+
+    public static readonly BindingType flashlight           = new FlashLight(300,           "InventoryIsFlashLightOn");
+    public static readonly BindingType handflashlight       = new HandFlashLight(301,       "InventoryIsHandFlashLightOn");
+    public static readonly BindingType gunflashlight        = new GunFlashLight(302,        "InventoryIsGunFlashLightOn");
+    public static readonly BindingType helmetflashlight     = new HelmetFlashLight(303,     "InventoryIsHelmetFlashLightOn");
+
+    public static readonly BindingType bagUsedSlots                 = new BagUsedSlots(304,         "PlayerBagUsedSlots");
+    public static readonly BindingType bagSize                      = new BagSize(305,              "PlayerBagSize");
+    public static readonly BindingType characterCarryCapacity       = new BagCarryCapacity(306,     "PlayerCarryCapacity");
+    public static readonly BindingType characterMaxCarryCapacity    = new BagMaxCarryCapacity(307,  "PlayerMaxCarryCapacity");
 
     private static readonly List<BindingType> supportedBindings = new List<BindingType>();
 
@@ -213,49 +223,6 @@ public abstract class BindingType : Enumeration
         }
 
         return matchingItem;
-    }
-}
-
-public class CharacterDisplayInfoStat : BindingType
-{
-    protected DisplayInfoEntry displayInfoEntry;
-    private int displayInfoIndex;
-
-    public CharacterDisplayInfoStat(int value, string name, int displayInfoIndex) : base(value, name)
-    {
-        this.displayInfoIndex = displayInfoIndex;
-    }
-
-    public override string GetCurrentValue(EntityPlayer player)
-    {
-        if (displayInfoEntry == null)
-        {
-            displayInfoEntry = GetStatEntry(displayInfoIndex);
-
-            if (displayInfoEntry == null)
-            {
-                var message = string.Format("{0} does not have a supported Character Display Info Entry", Name);
-                Logging.Out(this.GetType().ToString(), message);
-                return "";
-            }
-
-            var mess = string.Format("DisplayInfoEntry found for bindingName {0} with a title of {1}", 
-                Name, UIDisplayInfoManager.Current.GetLocalizedName(displayInfoEntry.StatType));
-            Logging.Out(this.GetType().ToString(), mess);
-
-            return XUiM_Player.GetStatValue(displayInfoEntry.StatType, player, displayInfoEntry);
-        }
-        return XUiM_Player.GetStatValue(displayInfoEntry.StatType, player, displayInfoEntry); ;
-    }
-
-    protected DisplayInfoEntry GetStatEntry(int index)
-    {
-        var displayInfoList = UIDisplayInfoManager.Current.GetCharacterDisplayInfo();
-        if (displayInfoList.Count <= index)
-        {
-            return null;
-        }
-        return displayInfoList[index];
     }
 }
 

@@ -64,6 +64,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Binding\Enumeration.cs" />
+    <Compile Include="src\Binding\types\CharacterBag.cs" />
+    <Compile Include="src\Binding\types\CharacterDisplayInfoStat.cs" />
+    <Compile Include="src\Binding\types\Flashlights.cs" />
     <Compile Include="src\Logging\Logging.cs" />
     <Compile Include="src\Binding\Bindings.cs" />
     <Compile Include="src\XUiC_PlayerStatController.cs" />
