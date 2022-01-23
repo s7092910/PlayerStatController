@@ -69,7 +69,7 @@
     <Compile Include="src\Binding\types\Flashlights.cs" />
     <Compile Include="src\Logging\Logging.cs" />
     <Compile Include="src\Binding\Bindings.cs" />
-    <Compile Include="src\XUiC_PlayerStatController.cs" />
+    <Compile Include="src\Controllers\XUiC_PlayerStatController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
