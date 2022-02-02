@@ -12,6 +12,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 
+using StatControllers;
 using System.Collections.Generic;
 
 public class XUiC_PlayerStats : XUiController
@@ -21,8 +22,8 @@ public class XUiC_PlayerStats : XUiController
     public bool isDirty;
 
 	private EntityPlayer localPlayer;
-    private List<BindingType> activeBindings = new List<BindingType>();
-    private Dictionary<BindingType, string> bindingsLastValue = new Dictionary<BindingType, string>();
+    private List<Binding> activeBindings = new List<Binding>();
+    private Dictionary<Binding, string> bindingsLastValue = new Dictionary<Binding, string>();
     public override void Init()
 	{
 		base.Init();
@@ -88,7 +89,7 @@ public class XUiC_PlayerStats : XUiController
             //for the bindingName, it will return false if no BindingType is found.
             if (string.IsNullOrEmpty(value))
             {
-                return BindingType.SupportsBinding(bindingName);
+                return Bindings.SupportsBinding(bindingName);
             }
 
             return true;
@@ -103,7 +104,7 @@ public class XUiC_PlayerStats : XUiController
     /// <returns><see langword="true"/> if any binding value has been updated</returns>
     private bool HasChanged()
     {
-        foreach(BindingType stat in activeBindings)
+        foreach(Binding stat in activeBindings)
         {
             string lastValue = bindingsLastValue[stat];
             if (stat.HasValueChanged(localPlayer, ref lastValue)) 
@@ -127,10 +128,10 @@ public class XUiC_PlayerStats : XUiController
     /// <returns>The value for the binding</returns>
     private string GetBindingValue(string bindingName)
     {
-        BindingType stat = activeBindings.Find(f => f.Name.EqualsCaseInsensitive(bindingName));
+        Binding stat = activeBindings.Find(f => f.Name.EqualsCaseInsensitive(bindingName));
         if (stat == null)
         {
-            stat = BindingType.FromBindingName(bindingName);
+            stat = Bindings.GetBinding(bindingName);
             if (stat == null)
             {
                 return "";

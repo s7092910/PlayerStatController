@@ -12,9 +12,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 
+using StatControllers;
 using System.Collections.Generic;
 
-public class FlashLight : BindingType
+public class FlashLight : Binding
 {
     protected int flashlightId;
     protected int gunFlashlightId;

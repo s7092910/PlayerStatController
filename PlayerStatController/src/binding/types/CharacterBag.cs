@@ -12,7 +12,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 
-public class BagUsedSlots : BindingType
+using StatControllers;
+
+public class BagUsedSlots : Binding
 {
     public BagUsedSlots(int value, string name) : base(value, name)
     {
@@ -24,7 +26,7 @@ public class BagUsedSlots : BindingType
     }
 }
 
-public class BagCarryCapacity : BindingType
+public class BagCarryCapacity : Binding
 {
     public BagCarryCapacity(int value, string name) : base(value, name)
     {
@@ -36,7 +38,7 @@ public class BagCarryCapacity : BindingType
     }
 }
 
-public class BagMaxCarryCapacity : BindingType
+public class BagMaxCarryCapacity : Binding
 {
     public BagMaxCarryCapacity(int value, string name) : base(value, name)
     {
@@ -48,7 +50,7 @@ public class BagMaxCarryCapacity : BindingType
     }
 }
 
-public class BagSize: BindingType
+public class BagSize: Binding
 {
     public BagSize(int value, string name) : base(value, name)
     {

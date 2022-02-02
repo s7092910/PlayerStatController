@@ -12,6 +12,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 
+using StatControllers;
+
 public class CustomBindingExample
 {
     public class PlayerStatControllerExtensionInit : IModApi
@@ -21,13 +23,13 @@ public class CustomBindingExample
             Log.Out(" Loading Patch: " + GetType());
             //Adds the CharacterName custom binding to the supported bindings of the XUiC_PlayerStats
             //{PlayerName} is the binding used in the xml to access this custom binding.
-            BindingType.AddNewBinding(new CharacterName(500, "PlayerName"));
+            Bindings.AddBinding(new CharacterName(500, "PlayerName"));
 
             //Adds the Vehicle Speed Custom binding to the supported bindings of the XUiC_PlayerStats
             //{VehicleSpeed} is the binding used in the xml to access this custom binding.
-            BindingType.AddNewBinding(new VehicleSpeed(501, "VehicleSpeed"));
+            Bindings.AddBinding(new VehicleSpeed(501, "VehicleSpeed"));
 
-            BindingType.AddNewBinding(new InVehicle(502, "InVehicle"));
+            Bindings.AddBinding(new InVehicle(502, "InVehicle"));
 
             Log.Out(" Loaded Patch: " + GetType());
 
@@ -46,7 +48,7 @@ public class CustomBindingExample
     /// Creates a new BindingType that gets the name of an EntityPlayer. It is used to get the <br/>
     /// local player's name
     /// </summary>
-    public class CharacterName : BindingType
+    public class CharacterName : Binding
     {
         public CharacterName(int value, string name) : base(value, name) { }
 
@@ -65,7 +67,7 @@ public class CustomBindingExample
     /// Creates a new BindingType that gets the speed of Vehicle that is attached to a player. If the player is not inside <br/>
     /// a vehicle it will not get cause the bindings to refresh their value.
     /// </summary>
-    public class VehicleSpeed : BindingType
+    public class VehicleSpeed : Binding
     {
 
         private readonly CachedStringFormatter<float> formatter = new CachedStringFormatter<float>((float f) =>  f.ToCultureInvariantString("0.00"));
@@ -97,7 +99,7 @@ public class CustomBindingExample
         }
     }
 
-    public class InVehicle : BindingType
+    public class InVehicle : Binding
     {
         public InVehicle(int value, string name) : base(value, name) { }
 

@@ -12,221 +12,222 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.*/
 
+using StatControllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-public abstract class BindingType : Enumeration
+namespace StatControllers
 {
-    //All the base BindingTypes supported by the controller
-    public static readonly BindingType characterLevel          = new CharacterLevel(0,             "PlayerLevel");
-    public static readonly BindingType characterLootStage      = new CharacterLootStage(1,         "PlayerLootStage");
-    public static readonly BindingType CharacterCoreTemp       = new CharacterCoreTemp(2,          "PlayerCoreTemp");
-    public static readonly BindingType CharacterZombieKills    = new CharacterZombieKills(3,       "PlayerZombieKills");
-    public static readonly BindingType CharacterPlayerKills    = new CharacterPlayerKills(4,       "PlayerPvPKills");
-    public static readonly BindingType CharacterDeaths         = new CharacterDeaths(5,            "PlayerDeaths");
-    public static readonly BindingType CharacterTravelled      = new CharacterTravelled(6,         "PlayerTravelled");
-    public static readonly BindingType CharacterItemsCrafted   = new CharacterItemsCrafted(7,      "PlayerItemsCrafted");
-    public static readonly BindingType CharacterLongestLife    = new CharacterLongestLife(8,       "PlayerLongestLife");
-    public static readonly BindingType CharacterCurrentLife    = new CharacterCurrentLife(9,       "PlayerCurrentLife");
-    public static readonly BindingType CharacterXPToNextLevel  = new CharacterXPToNextLevel(10,    "PlayerXPToNextLevel");
+    public static class Bindings
+    {
+        private static readonly Dictionary<string, Binding> supportedBindings = new Dictionary<string, Binding>();
 
-    public static readonly BindingType characterHealthCurrent = new CharacterHealth(100, "PlayerHealth",            CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterHealthMax     = new CharacterHealth(101, "PlayerHealthMax",         CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterHealthWithMax = new CharacterHealth(102, "PlayerHealthWithMax",     CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterHealthPercent = new CharacterHealth(103, "PlayerHealthPercentage",  CharacterMainStat.MainStatFormat.Percentage);
-
-    public static readonly BindingType characterStaminaCurrent = new CharacterStamina(110, "PlayerStamina",             CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterStaminaMax     = new CharacterStamina(111, "PlayerStaminaMax",          CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterStaminaWithMax = new CharacterStamina(112, "PlayerStaminaWithMax",      CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterStaminaPercent = new CharacterStamina(113, "PlayerStaminaPercentage",   CharacterMainStat.MainStatFormat.Percentage);
-
-    public static readonly BindingType characterFoodCurrent = new CharacterFood(120, "PlayerFood",             CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterFoodMax     = new CharacterFood(121, "PlayerFoodMax",          CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterFoodWithMax = new CharacterFood(122, "PlayerFoodWithMax",      CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterFoodPercent = new CharacterFood(123, "PlayerFoodPercentage",   CharacterMainStat.MainStatFormat.Percentage);
-
-    public static readonly BindingType characterWaterCurrent = new CharacterWater(130, "PlayerWater",             CharacterMainStat.MainStatFormat.Current);
-    public static readonly BindingType characterWaterMax     = new CharacterWater(131, "PlayerWaterMax",          CharacterMainStat.MainStatFormat.Max);
-    public static readonly BindingType characterWaterWithMax = new CharacterWater(132, "PlayerWaterWithMax",      CharacterMainStat.MainStatFormat.WithMax);
-    public static readonly BindingType characterWaterPercent = new CharacterWater(133, "PlayerWaterPercentage",   CharacterMainStat.MainStatFormat.Percentage);
-
-    public static readonly BindingType characterHealthModifier         = new CharacterDisplayInfoStat(200, "PlayerHealthModifier",       0);
-    public static readonly BindingType characterStaminaModifier        = new CharacterDisplayInfoStat(201, "PlayerStaminaModifier",      1);
-    public static readonly BindingType characterArmor                  = new CharacterDisplayInfoStat(202, "PlayerArmor",                2);
-    public static readonly BindingType characterExplosionResist        = new CharacterDisplayInfoStat(203, "PlayerExplosionResist",      3);
-    public static readonly BindingType characterCritResist             = new CharacterDisplayInfoStat(204, "PlayerCritResist",           4);
-    public static readonly BindingType characterStaminaRegen           = new CharacterDisplayInfoStat(205, "PlayerStaminaRegen",         5);
-    public static readonly BindingType characterHealthRegen            = new CharacterDisplayInfoStat(206, "PlayerHealthRegen",          6);
-    public static readonly BindingType characterMedicalHealthRegen     = new CharacterDisplayInfoStat(207, "PlayerMedicalHealthRegen",   7);
-    public static readonly BindingType characterColdResist             = new CharacterDisplayInfoStat(208, "PlayerColdResist",           8);
-    public static readonly BindingType characterHeatResist             = new CharacterDisplayInfoStat(209, "PlayerHeatResist",           9);
-    public static readonly BindingType characterMobility               = new CharacterDisplayInfoStat(210, "PlayerMobility",             10);
-    public static readonly BindingType characterJumpStrength           = new CharacterDisplayInfoStat(211, "PlayerJumpStrength",         11);
-    public static readonly BindingType characterCarryingCapacity       = new CharacterDisplayInfoStat(212, "PlayerCarryingCapacity",     12);
-    public static readonly BindingType characterDamage                 = new CharacterDisplayInfoStat(213, "PlayerDamage",               13);
-    public static readonly BindingType characterBlockDamage            = new CharacterDisplayInfoStat(214, "PlayerBlockDamage",          14);
-    public static readonly BindingType characterRPM                    = new CharacterDisplayInfoStat(215, "PlayerRPM",                  15);
-    public static readonly BindingType characterAPM                    = new CharacterDisplayInfoStat(216, "PlayerAPM",                  16);
-
-    public static readonly BindingType flashlight           = new FlashLight(300,           "InventoryIsFlashLightOn");
-    public static readonly BindingType handflashlight       = new HandFlashLight(301,       "InventoryIsHandFlashLightOn");
-    public static readonly BindingType gunflashlight        = new GunFlashLight(302,        "InventoryIsGunFlashLightOn");
-    public static readonly BindingType helmetflashlight     = new HelmetFlashLight(303,     "InventoryIsHelmetFlashLightOn");
-
-    public static readonly BindingType bagUsedSlots                 = new BagUsedSlots(304,         "PlayerBagUsedSlots");
-    public static readonly BindingType bagSize                      = new BagSize(305,              "PlayerBagSize");
-    public static readonly BindingType characterCarryCapacity       = new BagCarryCapacity(306,     "PlayerCarryCapacity");
-    public static readonly BindingType characterMaxCarryCapacity    = new BagMaxCarryCapacity(307,  "PlayerMaxCarryCapacity");
-
-    private static readonly List<BindingType> supportedBindings = new List<BindingType>();
-
-    private static bool areDefaultSupportedStatTypesLoaded = false;
-
-    /// <summary>
-    /// The supported <see cref="BindingType"/> for the XUiC_PlayerStatController <br/>
-    /// Loads the default <see cref="BindingType"/> if they haven't been loaded before
-    /// </summary>
-    protected static List<BindingType> SupportedBindingTypes
-    { get 
+        static Bindings()
         {
-            if (!areDefaultSupportedStatTypesLoaded)
+            AddBinding(new CharacterLevel(0, "PlayerLevel"));
+            AddBinding(new CharacterLootStage(1, "PlayerLootStage"));
+            AddBinding(new CharacterCoreTemp(2, "PlayerCoreTemp"));
+            AddBinding(new CharacterZombieKills(3, "PlayerZombieKills"));
+            AddBinding(new CharacterPlayerKills(4, "PlayerPvPKills"));
+            AddBinding(new CharacterDeaths(5, "PlayerDeaths"));
+            AddBinding(new CharacterTravelled(6, "PlayerTravelled"));
+            AddBinding(new CharacterItemsCrafted(7, "PlayerItemsCrafted"));
+            AddBinding(new CharacterLongestLife(8, "PlayerLongestLife"));
+            AddBinding(new CharacterCurrentLife(9, "PlayerCurrentLife"));
+            AddBinding(new CharacterXPToNextLevel(10, "PlayerXPToNextLevel"));
+
+            AddBinding(new CharacterHealth(100, "PlayerHealth", CharacterMainStat.MainStatFormat.Current));
+            AddBinding(new CharacterHealth(101, "PlayerHealthMax", CharacterMainStat.MainStatFormat.Max));
+            AddBinding(new CharacterHealth(102, "PlayerHealthWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddBinding(new CharacterHealth(103, "PlayerHealthPercentage", CharacterMainStat.MainStatFormat.Percentage));
+
+            AddBinding(new CharacterStamina(110, "PlayerStamina", CharacterMainStat.MainStatFormat.Current));
+            AddBinding(new CharacterStamina(111, "PlayerStaminaMax", CharacterMainStat.MainStatFormat.Max));
+            AddBinding(new CharacterStamina(112, "PlayerStaminaWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddBinding(new CharacterStamina(113, "PlayerStaminaPercentage", CharacterMainStat.MainStatFormat.Percentage));
+
+            AddBinding(new CharacterFood(120, "PlayerFood", CharacterMainStat.MainStatFormat.Current));
+            AddBinding(new CharacterFood(121, "PlayerFoodMax", CharacterMainStat.MainStatFormat.Max));
+            AddBinding(new CharacterFood(122, "PlayerFoodWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddBinding(new CharacterFood(123, "PlayerFoodPercentage", CharacterMainStat.MainStatFormat.Percentage));
+
+            AddBinding(new CharacterWater(130, "PlayerWater", CharacterMainStat.MainStatFormat.Current));
+            AddBinding(new CharacterWater(131, "PlayerWaterMax", CharacterMainStat.MainStatFormat.Max));
+            AddBinding(new CharacterWater(132, "PlayerWaterWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddBinding(new CharacterWater(133, "PlayerWaterPercentage", CharacterMainStat.MainStatFormat.Percentage));
+
+            AddBinding(new CharacterDisplayInfoStat(200, "PlayerHealthModifier", 0));
+            AddBinding(new CharacterDisplayInfoStat(201, "PlayerStaminaModifier", 1));
+            AddBinding(new CharacterDisplayInfoStat(202, "PlayerArmor", 2));
+            AddBinding(new CharacterDisplayInfoStat(203, "PlayerExplosionResist", 3));
+            AddBinding(new CharacterDisplayInfoStat(204, "PlayerCritResist", 4));
+            AddBinding(new CharacterDisplayInfoStat(205, "PlayerStaminaRegen", 5));
+            AddBinding(new CharacterDisplayInfoStat(206, "PlayerHealthRegen", 6));
+            AddBinding(new CharacterDisplayInfoStat(207, "PlayerMedicalHealthRegen", 7));
+            AddBinding(new CharacterDisplayInfoStat(208, "PlayerColdResist", 8));
+            AddBinding(new CharacterDisplayInfoStat(209, "PlayerHeatResist", 9));
+            AddBinding(new CharacterDisplayInfoStat(210, "PlayerMobility", 10));
+            AddBinding(new CharacterDisplayInfoStat(211, "PlayerJumpStrength", 11));
+            AddBinding(new CharacterDisplayInfoStat(212, "PlayerCarryingCapacity", 12));
+            AddBinding(new CharacterDisplayInfoStat(213, "PlayerDamage", 13));
+            AddBinding(new CharacterDisplayInfoStat(214, "PlayerBlockDamage", 14));
+            AddBinding(new CharacterDisplayInfoStat(215, "PlayerRPM", 15));
+            AddBinding(new CharacterDisplayInfoStat(216, "PlayerAPM", 16));
+
+            AddBinding(new FlashLight(300, "InventoryIsFlashLightOn"));
+            AddBinding(new HandFlashLight(301, "InventoryIsHandFlashLightOn"));
+            AddBinding(new GunFlashLight(302, "InventoryIsGunFlashLightOn"));
+            AddBinding(new HelmetFlashLight(303, "InventoryIsHelmetFlashLightOn"));
+
+            AddBinding(new BagUsedSlots(304, "PlayerBagUsedSlots"));
+            AddBinding(new BagSize(305, "PlayerBagSize"));
+            AddBinding(new BagCarryCapacity(306, "PlayerCarryCapacity"));
+            AddBinding(new BagMaxCarryCapacity(307, "PlayerMaxCarryCapacity"));
+    }
+
+        /// <summary>
+        /// Finds the BindingType that contains the bindingName <br/>
+        /// An error will be logged to the 7 Days to Die console if a <see cref="Binding"/> can not be found for the bindingName
+        /// </summary>
+        /// <param name="name">The bindingName to search for</param>
+        /// <returns>The found <see cref="Binding"/>, otherwise <see langword="null"/></returns>
+        public static Binding GetBinding(string bindingName)
+        {
+            bindingName = bindingName.ToLower();
+            Binding binding;
+
+            if (supportedBindings.TryGetValue(bindingName, out binding))
             {
-                Logging.Out("Loading Default Supported Bindings");
-                areDefaultSupportedStatTypesLoaded = true;
-                supportedBindings.AddRange(GetAllBaseSupportedBindingTypes());
-                Logging.Out("Loaded Default Supported Bindings");
+                return binding;
             }
-            return supportedBindings; 
-        } 
-    }
 
-
-    /// <summary>
-    /// The <see cref="BindingType"/> constructor
-    /// </summary>
-    /// <param name="value">The <see langword="int"/> value used for identifying the <see cref="BindingType"/></param>
-    /// <param name="name">The bindingName for the <see cref="BindingType"/></param>
-    protected BindingType(int value, string name) : base(value, name)
-    {
-    }
-
-    /// <summary>
-    /// Gets the current value of the <see cref="BindingType"/> to bind to the XML
-    /// </summary>
-    /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
-    /// <returns>The value to bind to the XML</returns>
-    public abstract string GetCurrentValue(EntityPlayer player);
-
-    /// <summary>
-    /// Determines if the value for the <see cref="BindingType"/> has been updated and sets the last value in if it has been updated
-    /// </summary>
-    /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
-    /// <param name="lastValue">The value for the <see cref="BindingType"/> since it was last checked to see if it has been updated<br/>
-    /// If last value has been found to be changed, the new updated value will be sent back in this <see langword="ref"/></param>
-    /// <returns><see langword="true"/> if the value has changed, otherwise <see langword="false"/></returns>
-    public virtual bool HasValueChanged(EntityPlayer player, ref string lastValue)
-    {
-        string currentValue = GetCurrentValue(player);
-        bool changed = lastValue != currentValue;
-        lastValue = currentValue;
-        return changed;
-    }
-
-    /// <summary>
-    /// Adds a new <see cref="BindingType"/> to the Supported <see cref="BindingType"/>.
-    /// <para>
-    /// This method must be called to add a new custom <see cref="BindingType"/> that is not already supported <br/>
-    /// if a custom binding is wanted to be used. See the Custom Binding Example to see how to <br/>
-    /// add a new custom <see cref="BindingType"/>
-    /// </para>
-    /// </summary>
-    /// <param name="binding"></param>
-    public static void AddNewBinding(BindingType binding)
-    {
-        SupportedBindingTypes.Add(binding);
-    }
-
-    /// <summary>
-    /// Determines if there is a <see cref="BindingType"/> for the bindingName.<br/>
-    /// An error will be logged to the 7 Days to Die console if the bindingName doesn't have a corresponding <see cref="BindingType"/>
-    /// </summary>
-    /// <param name="bindingName">The bindingName to check for a corresponding BindingType </param>
-    /// <returns><see langword="true"/> if the bindingName has a BindingType, otherwise <see langword="false"/> </returns>
-    public static bool SupportsBinding(string bindingName)
-    {
-        bool b = SupportedBindingTypes.Exists(item => item.Name.EqualsCaseInsensitive(bindingName));
-        if (!b)
-        {
             var message = string.Format("{0} is not a supported bindingName", bindingName);
-            Logging.Error(typeof(BindingType).ToString(), message);
+            Logging.Error(typeof(Bindings).ToString(), message);
+
+            return null;
         }
 
-        return b;
-    }
-
-    /// <summary>
-    /// Finds the BindingType that contains the value.<br/>
-    /// An error will be logged to the 7 Days to Die console if a B<see cref="BindingType"/> can not be found for the value
-    /// </summary>
-    /// <param name="value">The value to search for</param>
-    /// <returns> <see cref="BindingType"/> - returns the found <see cref="BindingType"/>, otherwise <see langword="null"/></returns>
-    public static BindingType FromValue(int value)
-    {
-        var matchingItem = parse<int>(value, item => item.Value == value);
-        return matchingItem;
-    }
-
-    /// <summary>
-    /// Finds the BindingType that contains the bindingName <br/>
-    /// An error will be logged to the 7 Days to Die console if a <see cref="BindingType"/> can not be found for the bindingName
-    /// </summary>
-    /// <param name="name">The bindingName to search for</param>
-    /// <returns>The found <see cref="BindingType"/>, otherwise <see langword="null"/></returns>
-    public static BindingType FromBindingName(string name)
-    {
-        var matchingItem = parse<string>(name, item => item.Name.EqualsCaseInsensitive(name));
-        return matchingItem;
-    }
-
-    /// <summary>
-    /// Gets all the base supported <see cref="BindingType">BindingTypes</see>. It does this by searching the fields of <see cref="BindingType"/> for any fields declared as <br/>
-    /// {public static readonly} and will cast them to <see cref="BindingType"/> . If a field that is not castable to <see cref="BindingType"/>, this will cause
-    /// an error
-    /// </summary>
-    /// <returns>An IEnumerable containing all the found <see cref="BindingType">BindingTypes</see> that are <see cref="BindingType"/> fields</returns>
-    private static IEnumerable<BindingType> GetAllBaseSupportedBindingTypes()
-    {
-        var type = typeof(BindingType);
-        var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
-
-        return fields.Select(f => f.GetValue(null)).Cast<BindingType>();
-    }
-
-    /// <summary>
-    /// Searches the SupportedBindingTypes list to find a <see cref="BindingType"/> based on the Predicate. <br/>
-    /// An error will be logged to the 7 Days to Die console if a <see cref="BindingType"/> can not be found for the value
-    /// </summary>
-    /// <typeparam name="K">The type of the value to be searched</typeparam>
-    /// <param name="value">The value that is being searched for</param>
-    /// <param name="predicate">The prdicate to use to search the SupportedBindingTypes list</param>
-    /// <returns>The found <see cref="BindingType"/>, otherwise <see langword="null"/></returns>
-    private static BindingType parse<K>(K value, Predicate<BindingType> predicate)
-    {
-        var matchingItem = SupportedBindingTypes.Find(predicate);
-
-        if (matchingItem == null)
+        /// <summary>
+        /// Determines if there is a <see cref="Binding"/> for the bindingName.<br/>
+        /// An error will be logged to the 7 Days to Die console if the bindingName doesn't have a corresponding <see cref="Binding"/>
+        /// </summary>
+        /// <param name="bindingName">The bindingName to check for a corresponding Binding </param>
+        /// <returns><see langword="true"/> if the bindingName has a Binding, otherwise <see langword="false"/> </returns>
+        public static bool SupportsBinding(string bindingName)
         {
-            var message = string.Format("{0} is not a supported bindingName", value);
-            Logging.Error(typeof(BindingType).ToString(), message);
+            bool exists = supportedBindings.ContainsKey(bindingName);
+            if (!exists)
+            {
+                var message = string.Format("{0} is not a supported bindingName", bindingName);
+                Logging.Error(typeof(Bindings).ToString(), message);
+            }
+
+            return exists;
         }
 
-        return matchingItem;
+        /// <summary>
+        /// Adds a new <see cref="Binding"/> to the Supported <see cref="Binding"/>.
+        /// <para>
+        /// This method must be called to add a new custom <see cref="Binding"/> that is not already supported <br/>
+        /// if a custom binding is wanted to be used. See the Custom Binding Example to see how to <br/>
+        /// add a new custom <see cref="Binding"/>
+        /// </para>
+        /// </summary>
+        /// <param name="binding"></param>
+        public static void AddBinding(Binding binding)
+        {
+            supportedBindings.Add(binding.Name.ToLower(), binding);
+        }
+    }
+
+    public abstract class Binding : Enumeration
+    {
+        protected Binding(int value, string name) : base(value, name)
+        {
+        }
+
+        /// <summary>
+        /// Gets the current value of the <see cref="PlayerBinding"/> to bind to the XML
+        /// </summary>
+        /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
+        /// <returns>The value to bind to the XML</returns>
+        public abstract string GetCurrentValue(EntityPlayer player);
+
+        /// <summary>
+        /// Determines if the value for the <see cref="PlayerBinding"/> has been updated and sets the last value in if it has been updated
+        /// </summary>
+        /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
+        /// <param name="lastValue">The value for the <see cref="PlayerBinding"/> since it was last checked to see if it has been updated<br/>
+        /// If last value has been found to be changed, the new updated value will be sent back in this <see langword="ref"/></param>
+        /// <returns><see langword="true"/> if the value has changed, otherwise <see langword="false"/></returns>
+        public virtual bool HasValueChanged(EntityPlayer player, ref string lastValue)
+        {
+            string currentValue = GetCurrentValue(player);
+            bool changed = lastValue != currentValue;
+            lastValue = currentValue;
+            return changed;
+        }
+    }
+
+    public abstract class VehicleBinding : Binding
+    {
+        protected VehicleBinding(int value, string name) : base(value, name)
+        {
+        }
+
+        public override sealed string GetCurrentValue(EntityPlayer player)
+        {
+            EntityVehicle vehicle = player.AttachedToEntity as EntityVehicle;
+            if (vehicle != null)
+            {
+                return GetCurrentValue(vehicle);
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public override sealed bool HasValueChanged(EntityPlayer player, ref string lastValue)
+        {
+            EntityVehicle vehicle = player.AttachedToEntity as EntityVehicle;
+            if (vehicle != null)
+            {
+                return HasValueChanged(vehicle, ref lastValue);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the current value of the <see cref="VehicleBinding"/> to bind to the XML
+        /// </summary>
+        /// <param name="vehicle">The <see cref="EntityVehicle">player</see> the stat value belongs to</param>
+        /// <returns>The value to bind to the XML</returns>
+        public abstract string GetCurrentValue(EntityVehicle vehicle);
+
+        /// <summary>
+        /// Determines if the value for the <see cref="VehicleBinding"/> has been updated and sets the last value in if it has been updated
+        /// </summary>
+        /// <param name="player">The <see cref="EntityVehicle">player</see> the stat value belongs to</param>
+        /// <param name="lastValue">The value for the <see cref="VehicleBinding"/> since it was last checked to see if it has been updated<br/>
+        /// If last value has been found to be changed, the new updated value will be sent back in this <see langword="ref"/></param>
+        /// <returns><see langword="true"/> if the value has changed, otherwise <see langword="false"/></returns>
+        public virtual bool HasValueChanged(EntityVehicle vehicle, ref string lastValue)
+        {
+            string currentValue = GetCurrentValue(vehicle);
+            bool changed = lastValue != currentValue;
+            lastValue = currentValue;
+            return changed;
+        }
     }
 }
 
-public abstract class CharacterMainStat : BindingType
+public abstract class CharacterMainStat : Binding
 {
     protected MainStatFormat formatType;
     protected readonly CachedStringFormatter<float> floatRoundingFormatter = new CachedStringFormatter<float>((float f) => f.ToCultureInvariantString("0"));
@@ -269,7 +270,7 @@ public abstract class CharacterMainStat : BindingType
     }
 }
 
-public class CharacterLevel : BindingType
+public class CharacterLevel : Binding
 {
     public CharacterLevel(int value, string name) : base(value, name) { }
 
@@ -280,7 +281,7 @@ public class CharacterLevel : BindingType
 
 }
 
-public class CharacterLootStage : BindingType
+public class CharacterLootStage : Binding
 {
     public CharacterLootStage(int value, string name) : base(value, name) { }
 
@@ -291,7 +292,7 @@ public class CharacterLootStage : BindingType
 
 }
 
-public class CharacterCoreTemp : BindingType
+public class CharacterCoreTemp : Binding
 {
     public CharacterCoreTemp(int value, string name) : base(value, name) { }
 
@@ -302,7 +303,7 @@ public class CharacterCoreTemp : BindingType
 
 }
 
-public class CharacterZombieKills : BindingType
+public class CharacterZombieKills : Binding
 {
     public CharacterZombieKills(int value, string name) : base(value, name) { }
 
@@ -313,7 +314,7 @@ public class CharacterZombieKills : BindingType
 
 }
 
-public class CharacterPlayerKills : BindingType
+public class CharacterPlayerKills : Binding
 {
     public CharacterPlayerKills(int value, string name) : base(value, name) { }
 
@@ -324,7 +325,7 @@ public class CharacterPlayerKills : BindingType
 
 }
 
-public class CharacterDeaths : BindingType
+public class CharacterDeaths : Binding
 {
     public CharacterDeaths(int value, string name) : base(value, name) { }
 
@@ -335,7 +336,7 @@ public class CharacterDeaths : BindingType
 
 }
 
-public class CharacterTravelled : BindingType
+public class CharacterTravelled : Binding
 {
     public CharacterTravelled(int value, string name) : base(value, name) { }
 
@@ -347,7 +348,7 @@ public class CharacterTravelled : BindingType
 }
 
 
-public class CharacterItemsCrafted : BindingType
+public class CharacterItemsCrafted : Binding
 {
     public CharacterItemsCrafted(int value, string name) : base(value, name) { }
 
@@ -358,7 +359,7 @@ public class CharacterItemsCrafted : BindingType
 
 }
 
-public class CharacterLongestLife : BindingType
+public class CharacterLongestLife : Binding
 {
     public CharacterLongestLife(int value, string name) : base(value, name) { }
 
@@ -370,7 +371,7 @@ public class CharacterLongestLife : BindingType
 }
 
 
-public class CharacterCurrentLife : BindingType
+public class CharacterCurrentLife : Binding
 {
     public CharacterCurrentLife(int value, string name) : base(value, name) { }
 
@@ -382,7 +383,7 @@ public class CharacterCurrentLife : BindingType
 }
 
 
-public class CharacterXPToNextLevel : BindingType
+public class CharacterXPToNextLevel : Binding
 {
     public CharacterXPToNextLevel(int value, string name) : base(value, name) { }
 
