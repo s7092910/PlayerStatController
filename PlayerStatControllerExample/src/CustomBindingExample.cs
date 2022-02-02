@@ -23,13 +23,13 @@ public class CustomBindingExample
             Log.Out(" Loading Patch: " + GetType());
             //Adds the CharacterName custom binding to the supported bindings of the XUiC_PlayerStats
             //{PlayerName} is the binding used in the xml to access this custom binding.
-            Bindings.AddBinding(new CharacterName(500, "PlayerName"));
+            Bindings.AddNewBinding(new CharacterName(500, "PlayerName"));
 
             //Adds the Vehicle Speed Custom binding to the supported bindings of the XUiC_PlayerStats
             //{VehicleSpeed} is the binding used in the xml to access this custom binding.
-            Bindings.AddBinding(new VehicleSpeed(501, "VehicleSpeed"));
+            Bindings.AddNewBinding(new VehicleSpeed(501, "VehicleSpeed"));
 
-            Bindings.AddBinding(new InVehicle(502, "InVehicle"));
+            Bindings.AddNewBinding(new InVehicle(502, "InVehicle"));
 
             Log.Out(" Loaded Patch: " + GetType());
 

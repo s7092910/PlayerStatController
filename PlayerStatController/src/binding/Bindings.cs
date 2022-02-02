@@ -22,69 +22,71 @@ namespace StatControllers
 {
     public static class Bindings
     {
+
+        private const string TAG = "Bindings";
         private static readonly Dictionary<string, Binding> supportedBindings = new Dictionary<string, Binding>();
 
         static Bindings()
         {
-            AddBinding(new CharacterLevel(0, "PlayerLevel"));
-            AddBinding(new CharacterLootStage(1, "PlayerLootStage"));
-            AddBinding(new CharacterCoreTemp(2, "PlayerCoreTemp"));
-            AddBinding(new CharacterZombieKills(3, "PlayerZombieKills"));
-            AddBinding(new CharacterPlayerKills(4, "PlayerPvPKills"));
-            AddBinding(new CharacterDeaths(5, "PlayerDeaths"));
-            AddBinding(new CharacterTravelled(6, "PlayerTravelled"));
-            AddBinding(new CharacterItemsCrafted(7, "PlayerItemsCrafted"));
-            AddBinding(new CharacterLongestLife(8, "PlayerLongestLife"));
-            AddBinding(new CharacterCurrentLife(9, "PlayerCurrentLife"));
-            AddBinding(new CharacterXPToNextLevel(10, "PlayerXPToNextLevel"));
+            AddNewBinding(new CharacterLevel(0, "PlayerLevel"));
+            AddNewBinding(new CharacterLootStage(1, "PlayerLootStage"));
+            AddNewBinding(new CharacterCoreTemp(2, "PlayerCoreTemp"));
+            AddNewBinding(new CharacterZombieKills(3, "PlayerZombieKills"));
+            AddNewBinding(new CharacterPlayerKills(4, "PlayerPvPKills"));
+            AddNewBinding(new CharacterDeaths(5, "PlayerDeaths"));
+            AddNewBinding(new CharacterTravelled(6, "PlayerTravelled"));
+            AddNewBinding(new CharacterItemsCrafted(7, "PlayerItemsCrafted"));
+            AddNewBinding(new CharacterLongestLife(8, "PlayerLongestLife"));
+            AddNewBinding(new CharacterCurrentLife(9, "PlayerCurrentLife"));
+            AddNewBinding(new CharacterXPToNextLevel(10, "PlayerXPToNextLevel"));
 
-            AddBinding(new CharacterHealth(100, "PlayerHealth", CharacterMainStat.MainStatFormat.Current));
-            AddBinding(new CharacterHealth(101, "PlayerHealthMax", CharacterMainStat.MainStatFormat.Max));
-            AddBinding(new CharacterHealth(102, "PlayerHealthWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddBinding(new CharacterHealth(103, "PlayerHealthPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterHealth(100, "PlayerHealth", CharacterMainStat.MainStatFormat.Current));
+            AddNewBinding(new CharacterHealth(101, "PlayerHealthMax", CharacterMainStat.MainStatFormat.Max));
+            AddNewBinding(new CharacterHealth(102, "PlayerHealthWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddNewBinding(new CharacterHealth(103, "PlayerHealthPercentage", CharacterMainStat.MainStatFormat.Percentage));
 
-            AddBinding(new CharacterStamina(110, "PlayerStamina", CharacterMainStat.MainStatFormat.Current));
-            AddBinding(new CharacterStamina(111, "PlayerStaminaMax", CharacterMainStat.MainStatFormat.Max));
-            AddBinding(new CharacterStamina(112, "PlayerStaminaWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddBinding(new CharacterStamina(113, "PlayerStaminaPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterStamina(110, "PlayerStamina", CharacterMainStat.MainStatFormat.Current));
+            AddNewBinding(new CharacterStamina(111, "PlayerStaminaMax", CharacterMainStat.MainStatFormat.Max));
+            AddNewBinding(new CharacterStamina(112, "PlayerStaminaWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddNewBinding(new CharacterStamina(113, "PlayerStaminaPercentage", CharacterMainStat.MainStatFormat.Percentage));
 
-            AddBinding(new CharacterFood(120, "PlayerFood", CharacterMainStat.MainStatFormat.Current));
-            AddBinding(new CharacterFood(121, "PlayerFoodMax", CharacterMainStat.MainStatFormat.Max));
-            AddBinding(new CharacterFood(122, "PlayerFoodWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddBinding(new CharacterFood(123, "PlayerFoodPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterFood(120, "PlayerFood", CharacterMainStat.MainStatFormat.Current));
+            AddNewBinding(new CharacterFood(121, "PlayerFoodMax", CharacterMainStat.MainStatFormat.Max));
+            AddNewBinding(new CharacterFood(122, "PlayerFoodWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddNewBinding(new CharacterFood(123, "PlayerFoodPercentage", CharacterMainStat.MainStatFormat.Percentage));
 
-            AddBinding(new CharacterWater(130, "PlayerWater", CharacterMainStat.MainStatFormat.Current));
-            AddBinding(new CharacterWater(131, "PlayerWaterMax", CharacterMainStat.MainStatFormat.Max));
-            AddBinding(new CharacterWater(132, "PlayerWaterWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddBinding(new CharacterWater(133, "PlayerWaterPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterWater(130, "PlayerWater", CharacterMainStat.MainStatFormat.Current));
+            AddNewBinding(new CharacterWater(131, "PlayerWaterMax", CharacterMainStat.MainStatFormat.Max));
+            AddNewBinding(new CharacterWater(132, "PlayerWaterWithMax", CharacterMainStat.MainStatFormat.WithMax));
+            AddNewBinding(new CharacterWater(133, "PlayerWaterPercentage", CharacterMainStat.MainStatFormat.Percentage));
 
-            AddBinding(new CharacterDisplayInfoStat(200, "PlayerHealthModifier", 0));
-            AddBinding(new CharacterDisplayInfoStat(201, "PlayerStaminaModifier", 1));
-            AddBinding(new CharacterDisplayInfoStat(202, "PlayerArmor", 2));
-            AddBinding(new CharacterDisplayInfoStat(203, "PlayerExplosionResist", 3));
-            AddBinding(new CharacterDisplayInfoStat(204, "PlayerCritResist", 4));
-            AddBinding(new CharacterDisplayInfoStat(205, "PlayerStaminaRegen", 5));
-            AddBinding(new CharacterDisplayInfoStat(206, "PlayerHealthRegen", 6));
-            AddBinding(new CharacterDisplayInfoStat(207, "PlayerMedicalHealthRegen", 7));
-            AddBinding(new CharacterDisplayInfoStat(208, "PlayerColdResist", 8));
-            AddBinding(new CharacterDisplayInfoStat(209, "PlayerHeatResist", 9));
-            AddBinding(new CharacterDisplayInfoStat(210, "PlayerMobility", 10));
-            AddBinding(new CharacterDisplayInfoStat(211, "PlayerJumpStrength", 11));
-            AddBinding(new CharacterDisplayInfoStat(212, "PlayerCarryingCapacity", 12));
-            AddBinding(new CharacterDisplayInfoStat(213, "PlayerDamage", 13));
-            AddBinding(new CharacterDisplayInfoStat(214, "PlayerBlockDamage", 14));
-            AddBinding(new CharacterDisplayInfoStat(215, "PlayerRPM", 15));
-            AddBinding(new CharacterDisplayInfoStat(216, "PlayerAPM", 16));
+            AddNewBinding(new CharacterDisplayInfoStat(200, "PlayerHealthModifier", 0));
+            AddNewBinding(new CharacterDisplayInfoStat(201, "PlayerStaminaModifier", 1));
+            AddNewBinding(new CharacterDisplayInfoStat(202, "PlayerArmor", 2));
+            AddNewBinding(new CharacterDisplayInfoStat(203, "PlayerExplosionResist", 3));
+            AddNewBinding(new CharacterDisplayInfoStat(204, "PlayerCritResist", 4));
+            AddNewBinding(new CharacterDisplayInfoStat(205, "PlayerStaminaRegen", 5));
+            AddNewBinding(new CharacterDisplayInfoStat(206, "PlayerHealthRegen", 6));
+            AddNewBinding(new CharacterDisplayInfoStat(207, "PlayerMedicalHealthRegen", 7));
+            AddNewBinding(new CharacterDisplayInfoStat(208, "PlayerColdResist", 8));
+            AddNewBinding(new CharacterDisplayInfoStat(209, "PlayerHeatResist", 9));
+            AddNewBinding(new CharacterDisplayInfoStat(210, "PlayerMobility", 10));
+            AddNewBinding(new CharacterDisplayInfoStat(211, "PlayerJumpStrength", 11));
+            AddNewBinding(new CharacterDisplayInfoStat(212, "PlayerCarryingCapacity", 12));
+            AddNewBinding(new CharacterDisplayInfoStat(213, "PlayerDamage", 13));
+            AddNewBinding(new CharacterDisplayInfoStat(214, "PlayerBlockDamage", 14));
+            AddNewBinding(new CharacterDisplayInfoStat(215, "PlayerRPM", 15));
+            AddNewBinding(new CharacterDisplayInfoStat(216, "PlayerAPM", 16));
 
-            AddBinding(new FlashLight(300, "InventoryIsFlashLightOn"));
-            AddBinding(new HandFlashLight(301, "InventoryIsHandFlashLightOn"));
-            AddBinding(new GunFlashLight(302, "InventoryIsGunFlashLightOn"));
-            AddBinding(new HelmetFlashLight(303, "InventoryIsHelmetFlashLightOn"));
+            AddNewBinding(new FlashLight(300, "InventoryIsFlashLightOn"));
+            AddNewBinding(new HandFlashLight(301, "InventoryIsHandFlashLightOn"));
+            AddNewBinding(new GunFlashLight(302, "InventoryIsGunFlashLightOn"));
+            AddNewBinding(new HelmetFlashLight(303, "InventoryIsHelmetFlashLightOn"));
 
-            AddBinding(new BagUsedSlots(304, "PlayerBagUsedSlots"));
-            AddBinding(new BagSize(305, "PlayerBagSize"));
-            AddBinding(new BagCarryCapacity(306, "PlayerCarryCapacity"));
-            AddBinding(new BagMaxCarryCapacity(307, "PlayerMaxCarryCapacity"));
+            AddNewBinding(new BagUsedSlots(304, "PlayerBagUsedSlots"));
+            AddNewBinding(new BagSize(305, "PlayerBagSize"));
+            AddNewBinding(new BagCarryCapacity(306, "PlayerCarryCapacity"));
+            AddNewBinding(new BagMaxCarryCapacity(307, "PlayerMaxCarryCapacity"));
     }
 
         /// <summary>
@@ -104,7 +106,7 @@ namespace StatControllers
             }
 
             var message = string.Format("{0} is not a supported bindingName", bindingName);
-            Logging.Error(typeof(Bindings).ToString(), message);
+            Logging.Error(TAG, message);
 
             return null;
         }
@@ -121,7 +123,7 @@ namespace StatControllers
             if (!exists)
             {
                 var message = string.Format("{0} is not a supported bindingName", bindingName);
-                Logging.Error(typeof(Bindings).ToString(), message);
+                Logging.Error(TAG, message);
             }
 
             return exists;
@@ -136,7 +138,7 @@ namespace StatControllers
         /// </para>
         /// </summary>
         /// <param name="binding"></param>
-        public static void AddBinding(Binding binding)
+        public static void AddNewBinding(Binding binding)
         {
             supportedBindings.Add(binding.Name.ToLower(), binding);
         }
