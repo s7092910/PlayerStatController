@@ -25,7 +25,7 @@ public abstract class Enumeration : IComparable
     protected Enumeration(int value, string name)
     {
         this.value = value;
-        this.name = name;
+        this.name = name.ToLower();
     }
 
     public int Value

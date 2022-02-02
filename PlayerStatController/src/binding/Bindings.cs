@@ -13,10 +13,8 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 
 using StatControllers;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace StatControllers
 {
@@ -97,10 +95,7 @@ namespace StatControllers
         /// <returns>The found <see cref="Binding"/>, otherwise <see langword="null"/></returns>
         public static Binding GetBinding(string bindingName)
         {
-            bindingName = bindingName.ToLower();
-            Binding binding;
-
-            if (supportedBindings.TryGetValue(bindingName, out binding))
+            if (supportedBindings.TryGetValue(bindingName.ToLower(), out Binding binding))
             {
                 return binding;
             }
@@ -119,14 +114,14 @@ namespace StatControllers
         /// <returns><see langword="true"/> if the bindingName has a Binding, otherwise <see langword="false"/> </returns>
         public static bool SupportsBinding(string bindingName)
         {
-            bool exists = supportedBindings.ContainsKey(bindingName);
-            if (!exists)
+            if (!supportedBindings.ContainsKey(bindingName.ToLower()))
             {
                 var message = string.Format("{0} is not a supported bindingName", bindingName);
                 Logging.Error(TAG, message);
+                return false;
             }
 
-            return exists;
+            return true;
         }
 
         /// <summary>
@@ -140,7 +135,7 @@ namespace StatControllers
         /// <param name="binding"></param>
         public static void AddNewBinding(Binding binding)
         {
-            supportedBindings.Add(binding.Name.ToLower(), binding);
+            supportedBindings.Add(binding.Name, binding);
         }
     }
 
@@ -173,55 +168,35 @@ namespace StatControllers
         }
     }
 
-    public abstract class VehicleBinding : Binding
+    public abstract class BindingAlias : Binding
     {
-        protected VehicleBinding(int value, string name) : base(value, name)
+        public const char AliasSeperator = '+';
+
+        protected string alias;
+
+        protected BindingAlias(int value, string name) : base(value, name)
         {
+            if (Name.Contains(AliasSeperator))
+            {
+                alias = Name.Split(AliasSeperator)[1];
+            }
         }
 
         public override sealed string GetCurrentValue(EntityPlayer player)
         {
-            EntityVehicle vehicle = player.AttachedToEntity as EntityVehicle;
-            if (vehicle != null)
-            {
-                return GetCurrentValue(vehicle);
-            }
-            else
-            {
-                return "";
-            }
+            return GetCurrentValue(player, alias);
         }
 
         public override sealed bool HasValueChanged(EntityPlayer player, ref string lastValue)
         {
-            EntityVehicle vehicle = player.AttachedToEntity as EntityVehicle;
-            if (vehicle != null)
-            {
-                return HasValueChanged(vehicle, ref lastValue);
-            }
-            else
-            {
-                return false;
-            }
+            return HasValueChanged(player, alias, ref lastValue);
         }
 
-        /// <summary>
-        /// Gets the current value of the <see cref="VehicleBinding"/> to bind to the XML
-        /// </summary>
-        /// <param name="vehicle">The <see cref="EntityVehicle">player</see> the stat value belongs to</param>
-        /// <returns>The value to bind to the XML</returns>
-        public abstract string GetCurrentValue(EntityVehicle vehicle);
+        public abstract string GetCurrentValue(EntityPlayer player, string alias);
 
-        /// <summary>
-        /// Determines if the value for the <see cref="VehicleBinding"/> has been updated and sets the last value in if it has been updated
-        /// </summary>
-        /// <param name="player">The <see cref="EntityVehicle">player</see> the stat value belongs to</param>
-        /// <param name="lastValue">The value for the <see cref="VehicleBinding"/> since it was last checked to see if it has been updated<br/>
-        /// If last value has been found to be changed, the new updated value will be sent back in this <see langword="ref"/></param>
-        /// <returns><see langword="true"/> if the value has changed, otherwise <see langword="false"/></returns>
-        public virtual bool HasValueChanged(EntityVehicle vehicle, ref string lastValue)
+        public virtual bool HasValueChanged(EntityPlayer player, string alias, ref string lastValue)
         {
-            string currentValue = GetCurrentValue(vehicle);
+            string currentValue = GetCurrentValue(player, alias);
             bool changed = lastValue != currentValue;
             lastValue = currentValue;
             return changed;
