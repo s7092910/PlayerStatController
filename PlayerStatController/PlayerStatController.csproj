@@ -67,6 +67,7 @@
     <Compile Include="src\Binding\types\CharacterBag.cs" />
     <Compile Include="src\Binding\types\CharacterDisplayInfoStat.cs" />
     <Compile Include="src\Binding\types\CharacterHudStats.cs" />
+    <Compile Include="src\Binding\types\CharacterSheetStats.cs" />
     <Compile Include="src\Binding\types\Flashlights.cs" />
     <Compile Include="src\Binding\Base Bindings\VehicleBaseBindings.cs" />
     <Compile Include="src\Logging\Logging.cs" />
