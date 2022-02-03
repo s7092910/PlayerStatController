@@ -72,6 +72,7 @@
     <Compile Include="src\Logging\Logging.cs" />
     <Compile Include="src\Binding\Bindings.cs" />
     <Compile Include="src\Controllers\XUiC_PlayerStatController.cs" />
+    <Compile Include="src\Utility\FormatUtil.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
