@@ -38,25 +38,41 @@ namespace StatControllers
             AddNewBinding(new CharacterCurrentLife(9, "PlayerCurrentLife"));
             AddNewBinding(new CharacterXPToNextLevel(10, "PlayerXPToNextLevel"));
 
-            AddNewBinding(new CharacterHealth(100, "PlayerHealth", CharacterMainStat.MainStatFormat.Current));
-            AddNewBinding(new CharacterHealth(101, "PlayerHealthMax", CharacterMainStat.MainStatFormat.Max));
-            AddNewBinding(new CharacterHealth(102, "PlayerHealthWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddNewBinding(new CharacterHealth(103, "PlayerHealthPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterHealth(100, "PlayerHealth"));
+            AddNewBinding(new CharacterHealth(101, "PlayerHealth+Max"));
+            AddNewBinding(new CharacterHealth(102, "PlayerHealth+WithMax"));
+            AddNewBinding(new CharacterHealth(103, "PlayerHealth+Percentage"));
 
-            AddNewBinding(new CharacterStamina(110, "PlayerStamina", CharacterMainStat.MainStatFormat.Current));
-            AddNewBinding(new CharacterStamina(111, "PlayerStaminaMax", CharacterMainStat.MainStatFormat.Max));
-            AddNewBinding(new CharacterStamina(112, "PlayerStaminaWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddNewBinding(new CharacterStamina(113, "PlayerStaminaPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterHealth(104, "PlayerHealthMax", "Max"));
+            AddNewBinding(new CharacterHealth(105, "PlayerHealthWithMax", "WithMax"));
+            AddNewBinding(new CharacterHealth(106, "PlayerHealthPercentage", "Percentage"));
 
-            AddNewBinding(new CharacterFood(120, "PlayerFood", CharacterMainStat.MainStatFormat.Current));
-            AddNewBinding(new CharacterFood(121, "PlayerFoodMax", CharacterMainStat.MainStatFormat.Max));
-            AddNewBinding(new CharacterFood(122, "PlayerFoodWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddNewBinding(new CharacterFood(123, "PlayerFoodPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterStamina(110, "PlayerStamina"));
+            AddNewBinding(new CharacterStamina(111, "PlayerStamina+Max"));
+            AddNewBinding(new CharacterStamina(112, "PlayerStamina+WithMax"));
+            AddNewBinding(new CharacterStamina(113, "PlayerStamina+Percentage"));
 
-            AddNewBinding(new CharacterWater(130, "PlayerWater", CharacterMainStat.MainStatFormat.Current));
-            AddNewBinding(new CharacterWater(131, "PlayerWaterMax", CharacterMainStat.MainStatFormat.Max));
-            AddNewBinding(new CharacterWater(132, "PlayerWaterWithMax", CharacterMainStat.MainStatFormat.WithMax));
-            AddNewBinding(new CharacterWater(133, "PlayerWaterPercentage", CharacterMainStat.MainStatFormat.Percentage));
+            AddNewBinding(new CharacterStamina(114, "PlayerStaminaMax", "Max"));
+            AddNewBinding(new CharacterStamina(115, "PlayerStaminaWithMax", "WithMax"));
+            AddNewBinding(new CharacterStamina(116, "PlayerStaminaPercentage", "Percentage"));
+
+            AddNewBinding(new CharacterFood(120, "PlayerFood"));
+            AddNewBinding(new CharacterFood(121, "PlayerFood+Max"));
+            AddNewBinding(new CharacterFood(122, "PlayerFood+WithMax"));
+            AddNewBinding(new CharacterFood(123, "PlayerFood+Percentage"));
+
+            AddNewBinding(new CharacterFood(124, "PlayerFoodMax", "Max"));
+            AddNewBinding(new CharacterFood(125, "PlayerFoodWithMax", "WithMax"));
+            AddNewBinding(new CharacterFood(126, "PlayerFoodPercentage", "Percentage"));
+
+            AddNewBinding(new CharacterWater(130, "PlayerWater"));
+            AddNewBinding(new CharacterWater(131, "PlayerWater+Max"));
+            AddNewBinding(new CharacterWater(132, "PlayerWater+WithMax"));
+            AddNewBinding(new CharacterWater(133, "PlayerWater+Percentage"));
+
+            AddNewBinding(new CharacterWater(134, "PlayerWaterMax", "Max"));
+            AddNewBinding(new CharacterWater(135, "PlayerWaterWithMax", "WithMax"));
+            AddNewBinding(new CharacterWater(136, "PlayerWaterPercentage", "Percentage"));
 
             AddNewBinding(new CharacterDisplayInfoStat(200, "PlayerHealthModifier", 0));
             AddNewBinding(new CharacterDisplayInfoStat(201, "PlayerStaminaModifier", 1));
@@ -180,6 +196,11 @@ namespace StatControllers
             {
                 alias = Name.Split(AliasSeperator)[1];
             }
+        }
+
+        protected BindingAlias(int value, string name, string alias) : base(value, name)
+        {
+            this.alias = alias.ToLower();
         }
 
         public override sealed string GetCurrentValue(EntityPlayer player)
