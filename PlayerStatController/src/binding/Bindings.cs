@@ -23,6 +23,7 @@ namespace StatControllers
         private const string TAG = "Bindings";
         private static readonly Dictionary<string, Binding> supportedBindings = new Dictionary<string, Binding>();
 
+        //Adds all the base supported bindings
         static Bindings()
         {
             AddNewBinding(new CharacterLevel(0, "PlayerLevel"));
@@ -154,24 +155,33 @@ namespace StatControllers
         }
     }
 
+    /// <summary>
+    /// The base Binding Class. All bindings must extend this class.
+    /// </summary>
     public abstract class Binding : Enumeration
     {
+
+        /// <summary>
+        /// The <see cref="Binding"/> constructor
+        /// </summary>
+        /// <param name="value">The <see langword="int"/> value used for identifying the <see cref="Binding"/></param>
+        /// <param name="name">The bindingName for the <see cref="Binding"/></param>
         protected Binding(int value, string name) : base(value, name)
         {
         }
 
         /// <summary>
-        /// Gets the current value of the <see cref="PlayerBinding"/> to bind to the XML
+        /// Gets the current value of the <see cref="Binding"/> to bind to the XML
         /// </summary>
         /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
         /// <returns>The value to bind to the XML</returns>
         public abstract string GetCurrentValue(EntityPlayer player);
 
         /// <summary>
-        /// Determines if the value for the <see cref="PlayerBinding"/> has been updated and sets the last value in if it has been updated
+        /// Determines if the value for the <see cref="Binding"/> has been updated and sets the last value in if it has been updated
         /// </summary>
         /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
-        /// <param name="lastValue">The value for the <see cref="PlayerBinding"/> since it was last checked to see if it has been updated<br/>
+        /// <param name="lastValue">The value for the <see cref="Binding"/> since it was last checked to see if it has been updated<br/>
         /// If last value has been found to be changed, the new updated value will be sent back in this <see langword="ref"/></param>
         /// <returns><see langword="true"/> if the value has changed, otherwise <see langword="false"/></returns>
         public virtual bool HasValueChanged(EntityPlayer player, ref string lastValue)
@@ -183,12 +193,20 @@ namespace StatControllers
         }
     }
 
+    /// <summary>
+    /// The base binding class for bindings that might have multiple aliases for the binding.
+    /// </summary>
     public abstract class BindingAlias : Binding
     {
         public const char AliasSeperator = '+';
 
         protected string alias;
 
+        /// <summary>
+        /// The constructor for <see cref="BindingAlias". This constructor will extract the alias for the binding<br/>
+        /// by checking the name for a Alias Seperator defined as '+'/>
+        /// </summary>
+        /// <param name="name">The binding name that is used in</param>
         protected BindingAlias(int value, string name) : base(value, name)
         {
             if (Name.Contains(AliasSeperator))
@@ -197,6 +215,11 @@ namespace StatControllers
             }
         }
 
+        /// <summary>
+        /// The constructor for <see cref="BindingAlias". This constructor will use the passed in alias for operations<br/>
+        /// using the alias/>
+        /// </summary>
+        /// <param name="name">The binding name</param>
         protected BindingAlias(int value, string name, string alias) : base(value, name)
         {
             this.alias = alias.ToLower();
@@ -212,8 +235,23 @@ namespace StatControllers
             return HasValueChanged(player, alias, ref lastValue);
         }
 
+        /// <summary>
+        /// Gets the current value of the <see cref="BindingAlias"/> to bind to the XML
+        /// </summary>
+        /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
+        /// <param name="alias">The alias tied to this <see cref="BindingAlias"/> to determine what value to return</param>
+        /// <returns>The value to bind to the XML</returns>
         public abstract string GetCurrentValue(EntityPlayer player, string alias);
 
+
+        /// <summary>
+        /// Determines if the value for the <see cref="BindingAlias"/> has been updated and sets the last value in if it has been updated
+        /// </summary>
+        /// <param name="player">The <see cref="EntityPlayer">player</see> the stat value belongs to</param>
+        /// <param name="alias">The alias tied to this <see cref="BindingAlias"/ to determine if the value tied to the alias has been updated</param>
+        /// <param name="lastValue">The value for the <see cref="BindingAlias"/> since it was last checked to see if it has been updated<br/>
+        /// If last value has been found to be changed, the new updated value will be sent back in this <see langword="ref"/></param>
+        /// <returns><see langword="true"/> if the value has changed, otherwise <see langword="false"/></returns>
         public virtual bool HasValueChanged(EntityPlayer player, string alias, ref string lastValue)
         {
             string currentValue = GetCurrentValue(player, alias);
