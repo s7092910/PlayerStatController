@@ -55,50 +55,70 @@ but added as a new custom XML binding. You can find out how to add custom XML bi
 
 XML Binding | Description
 ---------|----------
-`{PlayerLevel}`                 | The player's level
-`{PlayerLootStage}`             | The player's loot stage
-`{PlayerCoreTemp}`              | The player's current core temperature
-`{PlayerZombieKills}`           | The amount of zombies the player has killed
-`{PlayerPvPKills}`              | The amount of other players the player has killed
-`{PlayerDeaths}`                | The amount of deaths the player has
-`{PlayerTravelled}`             | The total distance the player has travelled in kilometers
-`{PlayerItemsCrafted}`          | The amount of items the player has crafted
-`{PlayerLongestLife}`           | The player's longest life in hours and minutes
-`{PlayerCurrentLife}`           | The time since the player last respawned
-`{PlayerXPToNextLevel}`         | The amount of XP the player needs to reach the next level
-`{PlayerHealthCurrent}`         | The player's current health
-`{PlayerHealthMax}`             | The player's maximum amount of health
-`{PlayerHealthWithMax}`         | The player's current health with their maximum amount of health
-`{PlayerHealthPercentage}`      | The player's current health as a percentage of their maximum health
-`{PlayerStaminaCurrent}`        | The player's current stamina
-`{PlayerStaminaMax}`            | The player's maximum amount of stamina
-`{PlayerStaminaWithMax}`        | The player's current stamina with their maximum amount of stamina
-`{PlayerStaminaPercentage}`     | The player's current stamina as a percentage of their maximum stamina
-`{PlayerFoodCurrent}`           | The player's current food levels
-`{PlayerFoodMax}`               | The player's maximum amount of food
-`{PlayerFoodWithMax}`           | The player's current health with their maximum amount of food
-`{PlayerFoodPercentage}`        | The player's current food as a percentage of their maximum food
-`{PlayerWaterCurrent}`          | The player's current water levels
-`{PlayerWaterMax}`              | The player's maximum amount of water
-`{PlayerWaterWithMax}`          | The player's current water with their maximum amount of water
-`{PlayerWaterPercentage}`       | The player's current water as a percentage of their maximum water
-`{PlayerHealthModifier}`        | The amount the player's max health is decreased by
-`{PlayerStaminaModifier}`       | The amount the player's max stamnia is decreased by
-`{PlayerArmor}`                 | The player's physical armor rating
-`{PlayerExplosionResist}`       | The player's explosion resistance
-`{PlayerCritResist}`            | The player's crit resistance
-`{PlayerStaminaRegen}`          | The player's stamina regeneration
-`{PlayerHealthRegen}`           | The player's normal health regeneration
-`{PlayerMedicalHealthRegen}`    | The player's health regeneration from medical supplies - currently will only display 0
-`{PlayerColdResist}`            | The player's total cold resistance from equipment, skills and other modifiers
-`{PlayerHeatResist}`            | The player's total heat resistance from equipment, skills and other modifiers
-`{PlayerMobility}`              | The player's mobility
-`{PlayerJumpStrength}`          | The player's jump strength
-`{PlayerCarryingCapacity}`      | The player's carrying capacity
-`{PlayerDamage}`                | The damage of the player's currently equipped item
-`{PlayerBlockDamage}`           | The block damage of the player's currently equipped item
-`{PlayerRPM}`                   | The rounds per minute of the player's currently equipped item
-`{PlayerAPM}`                   | The attacks per minute of the player's currently equipped item
+`{PlayerLevel}`                     | The player's level
+`{PlayerLootStage}`                 | The player's loot stage
+`{PlayerCoreTemp}`                  | The player's current core temperature
+`{PlayerZombieKills}`               | The amount of zombies the player has killed
+`{PlayerPvPKills}`                  | The amount of other players the player has killed
+`{PlayerDeaths}`                    | The amount of deaths the player has
+`{PlayerTravelled}`                 | The total distance the player has travelled in kilometers
+`{PlayerItemsCrafted}`              | The amount of items the player has crafted
+`{PlayerLongestLife}`               | The player's longest life in hours and minutes
+`{PlayerCurrentLife}`               | The time since the player last respawned
+`{PlayerXPToNextLevel}`             | The amount of XP the player needs to reach the next level
+`{PlayerHealth}`                    | The player's current health
+`{PlayerHealthMax}`                 | The player's maximum amount of health
+`{PlayerHealth+Max}`                | The player's maximum amount of health
+`{PlayerHealthWithMax}`             | The player's current health with their maximum amount of health
+`{PlayerHealth+WithMax}`            | The player's current health with their maximum amount of health
+`{PlayerHealthPercentage}`          | The player's current health as a percentage of their maximum health
+`{PlayerHealth+Percentage}`         | The player's current health as a percentage of their maximum health
+`{PlayerStamina}`                   | The player's current stamina
+`{PlayerStaminaMax}`                | The player's maximum amount of stamina
+`{PlayerStamina+Max}`               | The player's maximum amount of stamina
+`{PlayerStaminaWithMax}`            | The player's current stamina with their maximum amount of stamina
+`{PlayerStamina+WithMax}`           | The player's current stamina with their maximum amount of stamina
+`{PlayerStaminaPercentage}`         | The player's current stamina as a percentage of their maximum stamina
+`{PlayerStamina+Percentage}`        | The player's current stamina as a percentage of their maximum stamina
+`{PlayerFood}`                      | The player's current food levels
+`{PlayerFoodMax}`                   | The player's maximum amount of food
+`{PlayerFood+Max}`                  | The player's maximum amount of food
+`{PlayerFoodWithMax}`               | The player's current health with their maximum amount of food
+`{PlayerFood+WithMax}`              | The player's current health with their maximum amount of food
+`{PlayerFoodPercentage}`            | The player's current food as a percentage of their maximum food
+`{PlayerFood+Percentage}`           | The player's current food as a percentage of their maximum food
+`{PlayerWater}`                     | The player's current water levels
+`{PlayerWaterMax}`                  | The player's maximum amount of water
+`{PlayerWater+Max}`                 | The player's maximum amount of water
+`{PlayerWaterWithMax}`              | The player's current water with their maximum amount of water
+`{PlayerWater+WithMax}`             | The player's current water with their maximum amount of water
+`{PlayerWaterPercentage}`           | The player's current water as a percentage of their maximum water
+`{PlayerWater+Percentage}`          | The player's current water as a percentage of their maximum water
+`{PlayerHealthModifier}`            | The amount the player's max health is decreased by
+`{PlayerStaminaModifier}`           | The amount the player's max stamnia is decreased by
+`{PlayerArmor}`                     | The player's physical armor rating
+`{PlayerExplosionResist}`           | The player's explosion resistance
+`{PlayerCritResist}`                | The player's crit resistance
+`{PlayerStaminaRegen}`              | The player's stamina regeneration
+`{PlayerHealthRegen}`               | The player's normal health regeneration
+`{PlayerMedicalHealthRegen}`        | The player's health regeneration from medical supplies - currently will only display 0
+`{PlayerColdResist}`                | The player's total cold resistance from equipment, skills and other modifiers
+`{PlayerHeatResist}`                | The player's total heat resistance from equipment, skills and other modifiers
+`{PlayerMobility}`                  | The player's mobility
+`{PlayerJumpStrength}`              | The player's jump strength
+`{PlayerCarryingCapacity}`          | The player's carrying capacity
+`{PlayerDamage}`                    | The damage of the player's currently equipped item
+`{PlayerBlockDamage}`               | The block damage of the player's currently equipped item
+`{PlayerRPM}`                       | The rounds per minute of the player's currently equipped item
+`{PlayerAPM}`                       | The attacks per minute of the player's currently equipped item
+`{PlayerBagUsedSlots}`              | The amount of slots in the player's inventory that is currently being used
+`{PlayerBagSize}`                   | The total amount of slots in the player's inventory
+`{PlayerCarryCapacity}`             | The amount of inventory slots that can be filled before the player is encumbered
+`{PlayerMaxCarryCapacity}`          | The max carry capacity of the player - it can be higher than PlayerBagSize
+`{InventoryIsFlashLightOn}`         | Checks if the player has any type of flashlight turned on or off
+`{InventoryIsHandFlashLightOn}`     | Checks if the player has a hand flashlight turned on or off
+`{InventoryIsGunFlashLightOn}`      | Checks if the player equipped gun has a flashlight turned on or off
+`{InventoryIsHelmetFlashLightOn}`   | Checks if the player has a hand of flashlight on or off
 
 ## Debugging
 

@@ -13,15 +13,15 @@ You can follow the [tutorial videos](https://www.youtube.com/playlist?list=PLJeC
 
 Once you have your development environment setup, add the **PlayerStatController.dll** as a reference to your mod's project like you did with the other DLLs from 7 Days to Die game files.
 
-## Creating the binding class
+## Creating the Binding class
 
-To start with adding a new binding, a new class is required that extends `BindingType`.
+To start with adding a new binding, a new class is required that extends `Binding`.
 
 ```C#
-public class YourClass : BindingType
+public class YourClass : Binding
 ```
 
-With extending `BindingType`, you will be required to add a base constructor. The constructor will
+With extending `Binding`, you will be required to add a base constructor. The constructor will
 pass a `int` value and a `string`.
 
 ```C#
@@ -84,15 +84,60 @@ public class YourClassInit : IModApi
 {
     public void InitMod(Mod _modInstance)
     {
-        BindingType.AddNewBinding(new YourClass(300, "YourBindingName"));
+        Bindings.AddNewBinding(new YourClass(300, "YourBindingName"));
      }
 }
 ```
 
-`BindingType` has a method,`AddNewBinding`, that allows you to add your new binding class that exposes that instance to the controller. Create an instance of your binding class and pass it in to the `AddNewBinding` method.
+`Bindings` has a method,`AddNewBinding`, that allows you to add your new binding class that exposes that instance to the controller. Create an instance of your binding class and pass it in to the `AddNewBinding` method.
 
 Once that is done, build your project and add the DLL produced to your mod folder. You now have access to that binding in the
 XML with the controller.
+
+## Using BindingAlias
+
+With the release of 2.0.0 a new class has been added to give additional functionality for creating Custom XML bindings. It functions the same way that the Binding class does with a few changes.
+
+To start with adding a new binding, a new class is required that extends `BindingAlias`.
+
+```C#
+public class YourClassWithAlias : BindingAlias
+```
+
+There is an additional constructor for `BindingAlias` in addition to the constructor for `Binding`
+
+The first constructor is for if an `Alias Seperator` is used in the `BindingName`, for example `{PlayerHealth+Max}`. The alias Seperator is the `+`. `BindingAlias` uses `+` as the default seperator.
+
+```C#
+public YourClass(int value, string name) : base(value, name) { }
+```
+
+The second constructor is if you do not want to use an Alias Seperator in the `BindingName`, for example `{PlayerHealthMax}`. It allows you to pass in the alias, `Max`, seperately from the `BindingName`.
+
+```C#
+public YourClass(int value, string name, string alias) : base(value, name, alias) { }
+```
+
+Both the `GetCurrentValue` and `HasValueChanged` have an additional `string` as a parameter, it is the `alias` tied to that object. It can be used to determine which value has changed or which value is to be returned to be bound to the XML. For example
+
+```C#
+ public override string GetCurrentValue(EntityPlayer player, string alias)
+    {
+        switch (alias)
+        {
+            case "max":
+                return Max;
+            case "withmax":
+                return WithMax;
+            case "percentage":
+                return Percentage;
+            default: 
+                return Current;
+        }
+    }
+```
+
+The `alias` will always have all characters in the `string` as lower case.
 
 ## Debugging
 
