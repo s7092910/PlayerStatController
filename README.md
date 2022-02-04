@@ -63,6 +63,10 @@ server and the server must have Easy Anti Cheat turned off.
 
 [Examples of the Controller in Action and custom XML bindings](PlayerStatControllerExample/)
 
+## Changelog
+
+[Changelog](CHANGELOG.md)
+
 ## License
 
     Copyright 2021 Christopher Beda
